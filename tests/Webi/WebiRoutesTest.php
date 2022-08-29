@@ -22,7 +22,7 @@ class WebiRoutesTest extends TestCase
 		$this->assertNotNull($routes);
 
 		$webi_routes = collect(app('router')->getRoutes())->filter(function (Route $route) {
-			if (!preg_match('/^web\/api/', $route->getName())) {
+			if (!preg_match('/^web.api./', $route->getName())) {
 				return false;
 			}
 

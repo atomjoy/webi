@@ -38,10 +38,10 @@ class User extends WebiUser
     // $this->hidden[] = 'secret_hash';
   }
 
-	protected $dispatchesEvents = [
-		// 'saved' => UserSaved::class,
-		// 'deleted' => UserDeleted::class,
-	];
+  protected $dispatchesEvents = [
+    // 'saved' => UserSaved::class,
+    // 'deleted' => UserDeleted::class,
+  ];
 }
 ```
 
