@@ -3,6 +3,7 @@
 namespace Tests\Webi;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Crypt;
 use Tests\TestCase;
 

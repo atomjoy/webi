@@ -70,8 +70,16 @@ class WebiServiceProvider extends ServiceProvider
 			], 'webi-public');
 
 			$this->publishes([
-				__DIR__ . '/../lang' => base_path('lang/vendor/webi')
+				__DIR__ . '/../lang' => base_path('lang/vendor/webi'),
 			], 'webi-lang');
+
+			$this->publishes([
+				__DIR__ . '/../lang/en' => base_path('lang/en')
+			], 'webi-lang-en');
+
+			$this->publishes([
+				__DIR__ . '/../lang/pl' => base_path('lang/pl')
+			], 'webi-lang-pl');
 
 			$this->publishes([
 				__DIR__ . '/../tests/Webi' => base_path('tests/Webi')

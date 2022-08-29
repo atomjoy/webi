@@ -67,6 +67,12 @@ Route::get('/activate/{id}/{code}', [YourActivationController::class, 'index'])-
 Route::get('/activate/{id}/{code}', [WebiActivate::class, 'index'])->middleware(['webi-locale']);
 ```
 
+## Copy translations to app lang
+
+```sh
+php artisan vendor:publish --tag=webi-lang-pl
+```
+
 ## Create db tables
 
 ```sh
@@ -91,13 +97,13 @@ php artisan serve
 ## Customize
 
 ```sh
-# Change email blade themes
+# Edit email blade themes
 php artisan vendor:publish --tag=webi-email
 
-# Change lang translations
+# Edit lang translations
 php artisan vendor:publish --tag=webi-lang
 
-# Create config
+# Edit config
 php artisan vendor:publish --tag=webi-config
 
 # Override config

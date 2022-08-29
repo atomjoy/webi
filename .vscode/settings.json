@@ -1,0 +1,74 @@
+{
+	// Window zoom/scale
+	"window.zoomLevel": -1,
+
+	// Workbench style
+	"workbench.tree.indent": 20,
+	"workbench.tree.renderIndentGuides": "always",
+	"workbench.colorTheme": "Bearded Theme Oceanic",
+
+	// File
+	"files.trimTrailingWhitespace": true,
+
+	// Style
+	"editor.fontSize": 19,
+	"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+	// Tabs
+	"editor.tabSize": 2,
+	"editor.insertSpaces": true, // Use spaces no tabs
+	"editor.detectIndentation": false,
+	"editor.wordWrap": "off",
+
+	// Formatter
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+
+	// Prettier settings @ext:esbenp.prettier-vscode
+	"prettier.useEditorConfig": false,
+	"prettier.singleQuote": true,
+	"prettier.semi": false,
+	"prettier.jsxSingleQuote": true,
+	"prettier.useTabs": true, // Change spaces to tabs
+
+	// Format files
+	"[markdown]": {
+		"editor.unicodeHighlight.ambiguousCharacters": false,
+		"editor.unicodeHighlight.invisibleCharacters": false,
+		"editor.wordWrap": "off"
+	},
+	"[javascript]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[vue]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[css]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[ts]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
+	},
+	"[php]": {
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false, // Change spaces to tabs
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+	},
+	"[blade]": {
+		"editor.tabSize": 4,
+		"editor.insertSpaces": false, // Change spaces to tabs
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "onecentlin.laravel-blade"
+	},
+
+	// Laravel Blade Snippets formatter @ext:onecentlin.laravel-blade
+	"blade.format.enable": true
+
+	// Laravel facades error
+	// "intelephense.diagnostics.undefinedTypes": false,
+	// "intelephense.diagnostics.undefinedMethods": false
+}

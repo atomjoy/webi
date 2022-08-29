@@ -39,6 +39,13 @@ MAIL_FROM_ADDRESS=hi@localhost
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
+## Copy locales to laravel app
+
+```sh
+php artisan vendor:publish --tag=webi-lang-en
+php artisan vendor:publish --tag=webi-lang-pl
+```
+
 ## Create database tables
 
 Commands: --env, --seed, --force
