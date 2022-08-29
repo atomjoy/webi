@@ -1,0 +1,40 @@
+{
+	"name": "atomjoy/webi",
+	"description": "Laravel web rest api authentication library.",
+	"type": "library",
+	"license": "MIT",
+	"autoload": {
+		"classmap": [
+			"src/"
+		],
+		"psr-4": {
+			"Webi\\": "src/",
+			"Database\\Factories\\": "database/factories/",
+			"Database\\Migrations\\": "database/migrations/",
+			"Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\": "tests/"
+		}
+	},
+	"authors": [
+		{
+			"name": "Atomjoy",
+			"email": "atomjoy.official@gmail.com"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {},
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Webi\\WebiServiceProvider"
+			],
+			"aliases": {
+				"Webi": "Webi\\Facades\\Webi"
+			}
+		}
+	}
+}
