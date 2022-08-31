@@ -92,6 +92,14 @@ php artisan db:seed --class=WebiSeeder
 php artisan serve
 ```
 
+## Testing
+
+Tests readme file location
+
+```sh
+tests/README.md
+```
+
 # Settings (optional)
 
 ## Customize
@@ -130,21 +138,4 @@ composer update
 composer dump-autoload -o
 
 composer update --no-dev
-```
-
-## Mail images
-
-```blade
-<img src="{{ Storage::url($post->image->path) }}" alt="">
-<img src="{{ $message->embed(asset('/images/image.jpg')) }}">
-<img src="{{ $message->embed(public_path() . '/images/image.jpg') }}" />
-<img src="data:image/png;base64,{{base64_encode(file_get_contents(resource_path('images/image.png')))}}" alt="">
-```
-
-## Test package
-
-Tests readme file location
-
-```sh
-vendor/atomjoy/webi/tests/README.md
 ```

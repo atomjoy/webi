@@ -35,7 +35,7 @@ MAIL_PORT=25
 MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
-MAIL_FROM_ADDRESS=hi@localhost
+MAIL_FROM_ADDRESS=noreply@local.host
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
@@ -55,7 +55,7 @@ Commands: --env, --seed, --force
 php artisan --env=testing migrate
 
 # Refresh
-php artisan --env=testing migrate:fresh --force
+php artisan --env=testing migrate:fresh
 ```
 
 ## Add in phpunit.xml
@@ -83,6 +83,8 @@ php artisan test --stop-on-failure --testsuite=Webi
 # All tests
 php artisan test --stop-on-failure
 ```
+
+# Dev settings (ignore)
 
 ## Local composer dev
 
