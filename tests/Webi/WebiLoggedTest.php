@@ -29,7 +29,9 @@ class WebiLoggedTest extends TestCase
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.'
-		]);
+		])->assertJsonStructure([
+			'data' => ['user']
+		])->assertJsonPath('data.user.email', $user->email);
 
 		$token = User::where('email', $user->email)->first()->remember_token;
 
@@ -37,7 +39,9 @@ class WebiLoggedTest extends TestCase
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Authenticated via remember me.'
-		]);
+		])->assertJsonStructure([
+			'data' => ['user']
+		])->assertJsonPath('data.user.email', $user->email);
 	}
 
 	/** @test */
@@ -49,6 +53,8 @@ class WebiLoggedTest extends TestCase
 
 		$res->assertStatus(422)->assertJson([
 			'message' => 'Not authenticated.'
-		]);
+		])->assertJsonStructure([
+			'data' => ['user']
+		])->assertJsonPath('data.user', null);
 	}
 }

@@ -88,7 +88,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => $pass,
 		]);
 
-		$res->assertStatus(201)->assertJson(['created' => true]);
+		$res->assertStatus(201)->assertJson(['data' => ['created' => true]]);
 
 		$this->assertDatabaseHas('users', [
 			'name' => $user->name,
@@ -116,7 +116,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => $pass,
 		]);
 
-		$res->assertStatus(201)->assertJson(['created' => true]);
+		$res->assertStatus(201)->assertJson(['data' => ['created' => true]]);
 
 		// Mail send test
 		Mail::assertSent(RegisterMail::class);
@@ -142,7 +142,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
 			'message' => 'Taki adres email już występuje.'
 		]);
 	}
@@ -161,7 +161,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
 			'message' => 'Pole imię jest wymagane.'
 		]);
 	}
@@ -179,7 +179,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
 			'message' => 'Pole adres email jest wymagane.'
 		]);
 	}
@@ -197,7 +197,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
 			'message' => 'Pole hasło jest wymagane.'
 		]);
 	}
@@ -215,7 +215,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => '',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
 			'message' => 'Potwierdzenie pola hasło nie zgadza się.'
 		]);
 	}

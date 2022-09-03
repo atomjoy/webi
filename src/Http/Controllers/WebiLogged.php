@@ -7,9 +7,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Webi\Events\WebiUserLogged;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogged extends Controller
 {
+	use HasJsonResponse;
+
 	function index(Request $request)
 	{
 		if (!Auth::check()) {
@@ -35,14 +38,12 @@ class WebiLogged extends Controller
 			// Event
 			WebiUserLogged::dispatch(Auth::user(), request()->ip());
 
-			return response()->json([
-				'message' => trans('Authenticated via remember me.'),
+			return $this->jsonResponse('Authenticated via remember me.', [
 				'locale' => app()->getLocale(),
 				'user' => Auth::user()
-			], 200);
+			]);
 		} else {
-			return response()->json([
-				'message' => trans('Not authenticated.'),
+			return $this->jsonResponse('Not authenticated.', [
 				'locale' => app()->getLocale(),
 				'user' => null
 			], 422);

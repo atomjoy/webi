@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Webi\Mail\PasswordMail;
 use Webi\Http\Requests\WebiResetPasswordRequest;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiPassReset extends Controller
 {
+	use HasJsonResponse;
+
 	function index(WebiResetPasswordRequest $request)
 	{
 		$valid = $request->validated();
@@ -59,8 +62,6 @@ class WebiPassReset extends Controller
 			throw new Exception('Unable to send e-mail, please try again later.');
 		}
 
-		return response()->json([
-			'message' => trans('A new password has been sent to the e-mail address provided.')
-		]);
+		return $this->jsonResponse('A new password has been sent to the e-mail address provided.');
 	}
 }

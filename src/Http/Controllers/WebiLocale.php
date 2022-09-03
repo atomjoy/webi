@@ -4,9 +4,12 @@ namespace Webi\Http\Controllers;
 
 use Exception;
 use App\Http\Controllers\Controller;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLocale extends Controller
 {
+	use HasJsonResponse;
+
 	function index($locale)
 	{
 		if (strlen($locale) == 2) {
@@ -14,10 +17,9 @@ class WebiLocale extends Controller
 
 			session(['locale' => app()->getLocale()]);
 
-			return response()->json([
-				'message' => trans('Locale has been changed.'),
+			return $this->jsonResponse('Locale has been changed.', [
 				'locale' => app()->getLocale(),
-			], 200);
+			]);
 		}
 
 		throw new Exception('Locale has not been changed.', 422);

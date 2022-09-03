@@ -83,7 +83,9 @@ class WebiLoginTest extends TestCase
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Authenticated.'
-		]);
+		])->assertJsonStructure([
+			'data' => ['user']
+		])->assertJsonPath('data.user.email', $user->email);
 
 		$this->assertNotNull($res['message']);
 	}

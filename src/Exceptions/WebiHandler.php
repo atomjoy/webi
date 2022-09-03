@@ -68,13 +68,17 @@ class WebiHandler extends ExceptionHandler
 					$msg = 'Not Found';
 				}
 
-				if (strlen($code) < 3 || strlen($code) > 3) {
+				if ((int) $code < 100 || (int) $code > 599) {
 					$code = 422;
+				}
+
+				if (config('webi.settings.translate_response') == true) {
+					$msg = trans($msg);
 				}
 
 				if (config('app.debug')) {
 					return response()->json([
-						'message' => trans($msg), // Translate message
+						'message' => $msg,
 						'code' => $code,
 						'ex' => [
 							'name' => $this->getClassName(get_class($e)),

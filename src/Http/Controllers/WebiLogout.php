@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogout extends Controller
 {
+	use HasJsonResponse;
+
 	function index(Request $request)
 	{
 		try {
@@ -35,8 +38,6 @@ class WebiLogout extends Controller
 			throw new Exception('Logged out error.', 422);
 		}
 
-		return response()->json([
-			'message' => trans('Logged out.')
-		]);
+		return $this->jsonResponse('Logged out.');
 	}
 }

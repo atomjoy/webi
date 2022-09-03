@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Webi\Events\WebiUserLogged;
 use Webi\Http\Requests\WebiLoginRequest;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogin extends Controller
 {
+	use HasJsonResponse;
+
 	function index(WebiLoginRequest $request)
 	{
 		$valid = $request->validated();
@@ -57,10 +60,9 @@ class WebiLogin extends Controller
 			// Event
 			WebiUserLogged::dispatch($user, request()->ip());
 
-			return response()->json([
-				'message' => trans('Authenticated.'),
+			return $this->jsonResponse('Authenticated.', [
 				'user' => $user,
-			], 200);
+			]);
 		} else {
 			throw new Exception('Invalid credentials.', 422);
 		}

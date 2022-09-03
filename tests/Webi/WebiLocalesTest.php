@@ -18,7 +18,7 @@ class WebiLocalesTest extends TestCase
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Zmieniono język.',
-			'locale' => 'pl'
+			'data' => ['locale' => 'pl'],
 		]);
 
 		$res = $this->getJson('/web/api/locale/error');
@@ -35,7 +35,7 @@ class WebiLocalesTest extends TestCase
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Locale has been changed.',
-			'locale' => 'en'
+			'data' => ['locale' => 'en'],
 		]);
 
 		$res = $this->getJson('/web/api/locale/error');
@@ -52,45 +52,42 @@ class WebiLocalesTest extends TestCase
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Zmieniono język.',
-			'locale' => 'pl'
+			'data' => ['locale' => 'pl'],
 		]);
 
 		$res = $this->getJson('/web/api/csrf');
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Utworzono csrf token.',
-			'locale' => 'pl'
+			'data' => ['locale' => 'pl'],
 		]);
 
 		$res = $this->getJson('/web/api/locale/en');
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Locale has been changed.',
-			'locale' => 'en'
+			'data' => ['locale' => 'en'],
 		]);
 
 		$res = $this->getJson('/web/api/csrf');
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Csrf token created.',
-			'locale' => 'en',
-			'counter' => 2,
+			'data' => ['locale' => 'en', 'counter' => 2],
 		]);
 
 		$res = $this->getJson('/web/api/csrf?locale=pl');
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Utworzono csrf token.',
-			'locale' => 'pl',
-			'counter' => 3
+			'data' => ['locale' => 'pl', 'counter' => 3],
 		]);
 
 		$res = $this->getJson('/web/api/csrf?locale=en');
 
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Csrf token created.',
-			'locale' => 'en',
-			'counter' => 4
+			'data' => ['locale' => 'en', 'counter' => 4],
 		]);
 	}
 }

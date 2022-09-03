@@ -8,9 +8,12 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Webi\Http\Requests\WebiChangePasswordRequest;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiPassChange extends Controller
 {
+	use HasJsonResponse;
+
 	function index(WebiChangePasswordRequest $request)
 	{
 		$valid = $request->validated();
@@ -24,9 +27,7 @@ class WebiPassChange extends Controller
 					'ip' => $request->ip()
 				]);
 
-				return response()->json([
-					'message' => trans('Password has been updated.')
-				]);
+				return $this->jsonResponse('Password has been updated.');
 			} catch (Exception $e) {
 				report($e);
 				throw new Exception('Database error.', 422);

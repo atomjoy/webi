@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Mail;
 use Webi\Events\WebiUserCreated;
 use Webi\Mail\RegisterMail;
 use Webi\Http\Requests\WebiRegisterRequest;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiRegister extends Controller
 {
+	use HasJsonResponse;
+
 	function index(WebiRegisterRequest $request)
 	{
 		$valid = $request->validated();
@@ -60,8 +63,7 @@ class WebiRegister extends Controller
 		// Event
 		WebiUserCreated::dispatch($user, request()->ip());
 
-		return response()->json([
-			'message' => trans('Account has been created, please confirm your email address.'),
+		return $this->jsonResponse('Account has been created, please confirm your email address.', [
 			'created' => true
 		], 201);
 	}

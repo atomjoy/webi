@@ -6,9 +6,12 @@ use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Webi\Http\Requests\WebiActivateRequest;
+use Webi\Traits\Http\HasJsonResponse;
 
 class WebiActivate extends Controller
 {
+	use HasJsonResponse;
+
 	function index(WebiActivateRequest $request)
 	{
 		$valid = $request->validated();
@@ -26,18 +29,14 @@ class WebiActivate extends Controller
 		}
 
 		if (!empty($user->email_verified_at)) {
-			return response()->json([
-				'message' => trans('The email address has already been confirmed.')
-			]);
+			return $this->jsonResponse('The email address has already been confirmed.');
 		}
 
 		try {
 			if ($user->code == strip_tags($valid['code'])) {
 				$user->update(['email_verified_at' => now()]);
 
-				return response()->json([
-					'message' => trans('Email has been confirmed.')
-				]);
+				return $this->jsonResponse('Email has been confirmed.');
 			}
 		} catch (Exception $e) {
 			report($e);

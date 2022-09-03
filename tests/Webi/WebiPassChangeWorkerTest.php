@@ -26,9 +26,9 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 	{
 		$res = $this->get('web/api/test/worker');
 
-		$res->assertStatus(200);
-
-		$this->assertNotNull($res['ip']);
+		$res->assertStatus(200)->assertJsonStructure([
+			'data' => ['ip', 'user']
+		]);
 	}
 
 	/** @test */
