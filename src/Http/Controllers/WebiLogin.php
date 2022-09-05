@@ -38,6 +38,7 @@ class WebiLogin extends Controller
 			if (
 				$remember == true
 				&& !empty($user->remember_token)
+				&& request()->secure()
 			) {
 				// $name, $val, $minutes, $path,
 				// $domain, $secure, $httpOnly = true,
