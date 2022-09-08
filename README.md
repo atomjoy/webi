@@ -139,3 +139,97 @@ composer dump-autoload -o
 
 composer update --no-dev
 ```
+
+# Web API Requests
+
+Send requests as json. You get the answer as json: **{"message": "", "code": "", data: []}**.
+
+### /web/api/login
+
+Method: **POST**
+
+```sh
+Params: 'email', 'password', 'remember_me'
+Data: {"message": "", "code": "", data: ['user']}
+```
+
+### /web/api/register
+
+Method: **POST**
+
+```sh
+Params: 'name', 'email', 'password', 'password_confirmation'
+Data: {"message": "", "code": "", data: ['created']}
+```
+
+### /web/api/reset
+
+Method: **POST**
+
+```sh
+Params: 'email'
+Data: {"message": "", "code": "", data: null}
+```
+
+### /web/api/activate/{id}/{code}
+
+Method: **GET**
+
+```sh
+Params: 'id', 'code'
+Data: {"message": "", "code": "", data: null}
+```
+
+### /web/api/loggout
+
+Method: **GET**
+
+```sh
+Params: without params
+Data: {"message": "", "code": "", data: null}
+```
+
+### /web/api/locale/{locale}
+
+Method: **GET**
+
+```sh
+Params: 'locale'
+Data: {"message": "", "code": "", data: ['locale']}
+```
+
+### /web/api/csrf
+
+Method: **GET**
+
+```sh
+Params: without params
+Data: {"message": "", "code": "", data: ['counter', 'locale', 'session_locale']}
+```
+
+### /web/api/logged
+
+Method: **GET**
+
+```sh
+Params: without params
+Data: {"message": "", "code": "", data: ['locale', 'user']}
+```
+
+### /web/api/change-password
+
+Method: **POST** Auth: **true**
+
+```sh
+Params: 'password_current', 'password', 'password_confirmation'
+Data: {"message": "", "code": "", data: null}
+```
+
+### /web/api/test/user, /web/api/test/worker, /web/api/test/admin
+
+Method: **GET** Auth: **true**
+
+```sh
+Params: without params
+Data: {"message": "", "code": "", data: ['user', 'ip']}
+```
