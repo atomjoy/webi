@@ -61,7 +61,6 @@ class WebiHandler extends ExceptionHandler
 
 				if ($e instanceof AuthenticationException) {
 					$code = 401;
-					$msg = $msg;
 				}
 
 				if ($e instanceof NotFoundHttpException) {
