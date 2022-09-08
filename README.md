@@ -142,7 +142,7 @@ composer update --no-dev
 
 # Web API Requests
 
-Send requests as json. You get the answer as json: **{"message": "", "code": "", data: []}**.
+Send requests as json. You get the answer as json: **{"message": "", "code": "", data: []}**. For more go to: **src\Http\Requests** and **src\Http\Controllers** directories.
 
 ### /web/api/login
 
