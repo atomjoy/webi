@@ -80,6 +80,7 @@ class WebiHandler extends ExceptionHandler
 				}
 
 				if (config('webi.settings.translate_response') == true) {
+					$this->refreshLocale($request);
 					$message = trans($message);
 				}
 
@@ -99,5 +100,14 @@ class WebiHandler extends ExceptionHandler
 				return response()->json($data, $status, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 			}
 		});
+	}
+
+	function refreshLocale($request)
+	{
+		$lang =  session('locale', config('app.locale'));
+		app()->setLocale($lang);
+		if ($request->has('locale')) {
+			app()->setLocale($request->query('locale'));
+		}
 	}
 }
