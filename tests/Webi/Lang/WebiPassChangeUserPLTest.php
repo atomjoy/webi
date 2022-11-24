@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Lang;
 
 use Illuminate\Support\Facades\Auth;
 use Webi\Enums\User\UserRole;
@@ -11,20 +11,20 @@ use Webi\Traits\Tests\AuthenticatedTestCase;
 	php artisan test --testsuite=Webi --stop-on-failure
 */
 
-class WebiPassChangeAdminTest extends AuthenticatedTestCase
+class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 {
-	protected UserRole $authWithRole = UserRole::ADMIN;
+	protected UserRole $authWithRole = UserRole::USER;
 
 	/** @test */
 	function logged_as_admin()
 	{
-		$this->assertSame($this->user->role, UserRole::ADMIN);
+		$this->assertSame($this->user->role, UserRole::USER);
 	}
 
 	/** @test */
 	function logged_user_data()
 	{
-		$res = $this->get('web/api/test/admin');
+		$res = $this->get('web/api/test/user');
 
 		$res->assertStatus(200)->assertJsonStructure([
 			'data' => ['ip', 'user']
@@ -34,6 +34,8 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 	/** @test */
 	function change_logged_user_password()
 	{
+		app()->setLocale('pl');
+
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123X',
 			'password' => 'password1234',
@@ -41,7 +43,7 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'Invalid current password.'
+			'message' => 'Podaj aktualne hasło.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -51,7 +53,7 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The password must be at least 11 characters.'
+			'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -61,7 +63,7 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The password confirmation does not match.'
+			'message' => 'Potwierdzenie pola hasło nie zgadza się.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -71,7 +73,7 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Password has been updated.'
+			'message' => 'Zaktualizowano hasło.'
 		]);
 
 		Auth::logout();
@@ -82,7 +84,7 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Authenticated.'
+			'message' => 'Zalogowany.'
 		]);
 
 		$this->assertNotNull($res['message']);
@@ -93,6 +95,8 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 	{
 		Auth::logout();
 
+		app()->setLocale('pl');
+
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123',
 			'password' => 'password1234',
@@ -100,17 +104,19 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(401)->assertJson([
-			'message' => 'Unauthenticated.'
+			'message' => 'Nie zalogowany.'
 		]);
 	}
 
 	/** @test */
 	function user_logout()
 	{
+		app()->setLocale('pl');
+
 		$res = $this->getJson('/web/api/logout');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Logged out.'
+			'message' => 'Wylogowano.'
 		]);
 	}
 }

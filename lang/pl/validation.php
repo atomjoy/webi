@@ -7,14 +7,14 @@ return [
 	| Validation Language Lines
 	|--------------------------------------------------------------------------
 	|
-	| The following language lines contain the default error messages used by
-	| the validator class. Some of these rules have multiple versions such
-	| as the size rules. Feel free to tweak each of these messages here.
+	| Pole following language lines contain pole default error messages used by
+	| pole validator class. Some of these rules have multiple versions such
+	| as pole size rules. Feel free to tweak each of these messages here.
 	|
 	*/
 
 	'accepted' => 'Pole :attribute musi zostać zaakceptowane.',
-	'accepted_if' => 'The :attribute musi zostać zaakceptowany kiedy :other wynosi :value.',
+	'accepted_if' => 'Pole :attribute musi zostać zaakceptowany kiedy :other wynosi :value.',
 	'active_url' => 'Pole :attribute jest nieprawidłowym adresem URL.',
 	'after' => 'Pole :attribute musi być datą późniejszą od :date.',
 	'after_or_equal' => 'Pole :attribute musi być datą nie wcześniejszą niż :date.',
@@ -37,16 +37,18 @@ return [
 	'date' => 'Pole :attribute nie jest prawidłową datą.',
 	'date_equals' => 'Pole :attribute musi być datą równą :date.',
 	'date_format' => 'Pole :attribute nie jest w formacie :format.',
-	'declined' => 'The :attribute must be declined.',
-	'declined_if' => 'The :attribute must be declined when :other is :value.',
+	'declined' => 'Pole :attribute must be declined.',
+	'declined_if' => 'Pole :attribute must be declined when :other is :value.',
 	'different' => 'Pole :attribute oraz :other muszą się różnić.',
 	'digits' => 'Pole :attribute musi składać się z :digits cyfr.',
 	'digits_between' => 'Pole :attribute musi mieć od :min do :max cyfr.',
 	'dimensions' => 'Pole :attribute ma niepoprawne wymiary.',
 	'distinct' => 'Pole :attribute ma zduplikowane wartości.',
+	'doesnt_end_with' => 'Pole :attribute may not end with one of pole following: :values.',
+	'doesnt_start_with' => 'Pole :attribute may not start with one of pole following: :values.',
 	'email' => 'Pole :attribute nie jest poprawnym adresem e-mail.',
 	'ends_with' => 'Pole :attribute musi kończyć się jedną z następujących wartości: :values.',
-	'enum' => 'The selected :attribute is invalid.',
+	'enum' => 'Pole selected :attribute is invalid.',
 	'exists' => 'Zaznaczone pole :attribute jest nieprawidłowe.',
 	'file' => 'Pole :attribute musi być plikiem.',
 	'filled' => 'Pole :attribute nie może być puste.',
@@ -69,7 +71,7 @@ return [
 	'ip' => 'Pole :attribute musi być prawidłowym adresem IP.',
 	'ipv4' => 'Pole :attribute musi być prawidłowym adresem IPv4.',
 	'ipv6' => 'Pole :attribute musi być prawidłowym adresem IPv6.',
-	'mac_address' => 'The :attribute must be a valid MAC address.',
+	'mac_address' => 'Pole :attribute musi być prawidłowym adresem MAC.',
 	'json' => 'Pole :attribute musi być poprawnym ciągiem znaków JSON.',
 	'lt' => [
 		'numeric' => 'Pole :attribute musi być mniejsze niż :value.',
@@ -89,6 +91,7 @@ return [
 		'string' => 'Pole :attribute nie może być dłuższe niż :max znaków.',
 		'array' => 'Pole :attribute nie może mieć więcej niż :max elementów.',
 	],
+	'max_digits' => 'Pole :attribute must not have more than :max digits.',
 	'mimes' => 'Pole :attribute musi być plikiem typu :values.',
 	'mimetypes' => 'Pole :attribute musi być plikiem typu :values.',
 	'min' => [
@@ -101,15 +104,22 @@ return [
 	'not_in' => 'Zaznaczony :attribute jest nieprawidłowy.',
 	'not_regex' => 'Format pola :attribute jest nieprawidłowy.',
 	'numeric' => 'Pole :attribute musi być liczbą.',
-	'password' => 'Hasło jest nieprawidłowe.',
+	'password' => [
+		'letters' => 'Pole :attribute musi zawierać jedną literę.',
+		'mixed' => 'Pole :attribute musi zawierać jedną dużą i małą literę.',
+		'numbers' => 'Pole :attribute musi zawierać jedną cyfrę.',
+		'symbols' => 'Pole :attribute musi zawierać jeden znak specjalny.',
+		'uncompromised' => 'Podane :attribute jest za proste. Podaj inne :attribute.',
+	],
 	'present' => 'Pole :attribute musi być obecne.',
 	'prohibited' => 'Pole :attribute jest zabronione.',
 	'prohibited_if' => 'Pole :attribute jest zabronione, gdy :other to :value.',
 	'prohibited_unless' => 'Pole :attribute jest zabronione, chyba że :other jest w :values.',
-	'prohibits' => 'The :attribute field prohibits :other from being present.',
+	'prohibits' => 'Pole :attribute zawiera niedoswolony :other.',
 	'regex' => 'Format pola :attribute jest nieprawidłowy.',
 	'relatable' => 'Ten :attribute może nie być powiązany z tym zasobem.',
 	'required' => 'Pole :attribute jest wymagane.',
+	'required_array_keys' => 'Pole :attribute musi zawierać: :values.',
 	'required_if' => 'Pole :attribute jest wymagane gdy :other ma wartość :value.',
 	'required_unless' => 'Pole :attribute jest wymagane jeżeli :other nie znajduje się w :values.',
 	'required_with' => 'Pole :attribute jest wymagane gdy :values jest obecny.',
@@ -137,7 +147,7 @@ return [
     |--------------------------------------------------------------------------
     |
     | Here you may specify custom validation messages for attributes using the
-    | convention "attribute.rule" to name the lines. This makes it quick to
+    | convention "attribute.rule" to name pole lines. This makes it quick to
     | specify a specific custom language line for a given attribute rule.
     |
     */
@@ -153,7 +163,7 @@ return [
     | Custom Validation Attributes
     |--------------------------------------------------------------------------
     |
-    | The following language lines are used to swap our attribute placeholder
+    | Pole following language lines are used to swap our attribute placeholder
     | with something more reader friendly such as "E-Mail Address" instead
     | of "email". This simply helps us make our message more expressive.
     |

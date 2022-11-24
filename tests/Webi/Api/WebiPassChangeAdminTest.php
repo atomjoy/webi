@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Api;
 
 use Illuminate\Support\Facades\Auth;
 use Webi\Enums\User\UserRole;
@@ -11,20 +11,20 @@ use Webi\Traits\Tests\AuthenticatedTestCase;
 	php artisan test --testsuite=Webi --stop-on-failure
 */
 
-class WebiPassChangeWorkerTest extends AuthenticatedTestCase
+class WebiPassChangeAdminTest extends AuthenticatedTestCase
 {
-	protected UserRole $authWithRole = UserRole::WORKER;
+	protected UserRole $authWithRole = UserRole::ADMIN;
 
 	/** @test */
 	function logged_as_admin()
 	{
-		$this->assertSame($this->user->role, UserRole::WORKER);
+		$this->assertSame($this->user->role, UserRole::ADMIN);
 	}
 
 	/** @test */
 	function logged_user_data()
 	{
-		$res = $this->get('web/api/test/worker');
+		$res = $this->get('web/api/test/admin');
 
 		$res->assertStatus(200)->assertJsonStructure([
 			'data' => ['ip', 'user']

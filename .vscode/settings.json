@@ -1,23 +1,28 @@
 {
+	// Php
+	"php.validate.executablePath": "C:/xampp/php/php.exe",
+
 	// Window zoom/scale
-	"window.zoomLevel": -1,
+	"window.zoomLevel": 0,
 
 	// Workbench style
 	"workbench.tree.indent": 20,
 	"workbench.tree.renderIndentGuides": "always",
-	"workbench.colorTheme": "Bearded Theme Oceanic",
+
+	// Icons
+	"workbench.iconTheme": "material-icon-theme",
 
 	// File
 	"files.trimTrailingWhitespace": true,
+	"editor.fontLigatures": true,
 
 	// Style
+	"editor.wordWrap": "off",
+	"editor.fontFamily": "'Fira Code',Consolas,monospace",
 	"editor.fontSize": 19,
-	"editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
-	// Tabs
 	"editor.tabSize": 2,
 	"editor.insertSpaces": true, // Use spaces no tabs
 	"editor.detectIndentation": false,
-	"editor.wordWrap": "off",
 
 	// Formatter
 	"editor.formatOnSave": true,
@@ -29,12 +34,21 @@
 	"prettier.semi": false,
 	"prettier.jsxSingleQuote": true,
 	"prettier.useTabs": true, // Change spaces to tabs
+	"prettier.bracketSameLine": true, // Dont break > tag end
+
+	// Line length
+	"editor.wordWrapColumn": 300, // Dont break line
+	"html.format.wrapLineLength": 300, // Dont break line
+	"prettier.printWidth": 300, // Dont break line
+
+	// Laravel Blade Snippets formatter @ext:onecentlin.laravel-blade
+	"blade.format.enable": true,
 
 	// Format files
 	"[markdown]": {
 		"editor.unicodeHighlight.ambiguousCharacters": false,
 		"editor.unicodeHighlight.invisibleCharacters": false,
-		"editor.wordWrap": "off"
+		"editor.wordWrap": "on"
 	},
 	"[javascript]": {
 		"editor.formatOnSave": true,
@@ -56,19 +70,23 @@
 		"editor.tabSize": 4,
 		"editor.insertSpaces": false, // Change spaces to tabs
 		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+		"editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+		"editor.wordWrapColumn": 1000
 	},
 	"[blade]": {
 		"editor.tabSize": 4,
 		"editor.insertSpaces": false, // Change spaces to tabs
 		"editor.formatOnSave": true,
-		"editor.defaultFormatter": "onecentlin.laravel-blade"
+		"editor.defaultFormatter": "onecentlin.laravel-blade",
+		"editor.wordWrapColumn": 1000,
+		"editor.autoClosingBrackets": "always"
 	},
 
-	// Laravel Blade Snippets formatter @ext:onecentlin.laravel-blade
-	"blade.format.enable": true
-
 	// Laravel facades error
-	// "intelephense.diagnostics.undefinedTypes": false,
-	// "intelephense.diagnostics.undefinedMethods": false
+	"intelephense.diagnostics.undefinedTypes": false,
+	"intelephense.diagnostics.undefinedMethods": false,
+	"intelephense.environment.phpVersion": "8.1.6",
+	"workbench.startupEditor": "none",
+	"workbench.colorTheme": "Bearded Theme Oceanic",
+	"explorer.confirmDragAndDrop": false
 }

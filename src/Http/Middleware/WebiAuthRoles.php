@@ -32,10 +32,10 @@ class WebiAuthRoles
 			if (Auth::check()) {
 				$user = Auth::user();
 				if (!in_array($user->role->value, $roles)) {
-					throw new Exception("Unauthorized Role", 401);
+					throw new Exception("Unauthorized Role.", 401);
 				}
 			} else {
-				throw new Exception("Unauthorized User", 401);
+				throw new Exception("Unauthorized User.", 401);
 			}
 		}
 

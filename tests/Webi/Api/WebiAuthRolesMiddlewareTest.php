@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Api;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -44,7 +44,7 @@ class WebiAuthRolesMiddlewareTest extends AuthenticatedTestCase
 				$this->assertEquals('some title', $request->title);
 			}, 'user|worker'); // roles without webi-role:
 		} catch (Exception $e) {
-			$this->assertEquals($e->getMessage(), 'Unauthorized Role');
+			$this->assertEquals($e->getMessage(), 'Unauthorized Role.');
 		}
 	}
 

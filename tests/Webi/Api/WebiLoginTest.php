@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Api;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;

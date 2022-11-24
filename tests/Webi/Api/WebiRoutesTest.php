@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Api;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Routing\Route;

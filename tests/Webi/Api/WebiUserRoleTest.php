@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Api;
 
 use Tests\TestCase;
 use Webi\Enums\User\UserRole;

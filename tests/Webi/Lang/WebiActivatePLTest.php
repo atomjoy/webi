@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Lang;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,13 +11,15 @@ use App\Models\User;
 	php artisan test --testsuite=Webi --stop-on-failure
 */
 
-class WebiActivateTest extends TestCase
+class WebiActivatePLTest extends TestCase
 {
 	use RefreshDatabase;
 
 	/** @test */
 	function invalid_activation_user_id()
 	{
+		app()->setLocale('pl');
+
 		$user = User::factory()->create(['email_verified_at' => null]);
 
 		$this->assertDatabaseHas('users', [
@@ -30,7 +32,7 @@ class WebiActivateTest extends TestCase
 
 		// Only numbers
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The id must be at least 1.'
+			'message' => 'Pole id musi być nie mniejsze od 1.'
 		]);
 
 		// Invalid number id
@@ -38,20 +40,22 @@ class WebiActivateTest extends TestCase
 
 		// Only numbers
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The id must be a number.'
+			'message' => 'Pole id musi być liczbą.'
 		]);
 
 		// Invalid user id
 		$res = $this->get('/web/api/activate/123/' . $user->code);
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'Invalid activation code.'
+			'message' => 'Niepoprawny kod aktywacyjny.'
 		]);
 	}
 
 	/** @test */
 	function invalid_activation_user_code()
 	{
+		app()->setLocale('pl');
+
 		$user = User::factory()->create(['email_verified_at' => null]);
 
 		$this->assertModelExists($user);
@@ -65,27 +69,29 @@ class WebiActivateTest extends TestCase
 		$res = $this->get('/web/api/activate/' . $user->id . '/er123');
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The code must be at least 6 characters.'
+			'message' => 'Pole code musi mieć przynajmniej 6 znaków.'
 		]);
 
 		// max:30
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . md5('tolongcode'));
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The code must not be greater than 30 characters.'
+			'message' => 'Pole code nie może być dłuższe niż 30 znaków.'
 		]);
 
 		// Code valid but not exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/errorcode123');
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'Email has not been activated.'
+			'message' => 'Nie można potwierdzić adresu email.'
 		]);
 	}
 
 	/** @test */
 	function activate_user()
 	{
+		app()->setLocale('pl');
+
 		$user = User::factory()->create(['email_verified_at' => null]);
 
 		$this->assertDatabaseHas('users', [
@@ -97,14 +103,14 @@ class WebiActivateTest extends TestCase
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Email has been confirmed.'
+			'message' => 'Adres email został potwierdzony.'
 		]);
 
 		// Exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'The email address has already been confirmed.'
+			'message' => 'Adres email jest już potwierdzony.'
 		]);
 
 		// Is Activated

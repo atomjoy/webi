@@ -10,7 +10,7 @@ trait HasJsonResponse
 			$code = 422;
 		}
 
-		if (config('webi.settings.translate_response') == true) {
+		if (config('webi.settings.translate_response', false) == true) {
 			$message = trans($message);
 		}
 

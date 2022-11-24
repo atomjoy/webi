@@ -2,8 +2,11 @@
 
 namespace Webi\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use PDOException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Arr;
+use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -36,6 +39,8 @@ class WebiHandler extends ExceptionHandler
 		'current_password',
 		'password',
 		'password_confirmation',
+		'remember_token',
+		'code',
 	];
 
 	/**
@@ -50,60 +55,49 @@ class WebiHandler extends ExceptionHandler
 		});
 
 		$this->renderable(function (Throwable $e, $request) {
-			// Json response
+			// Change "ServerError" Exception when app_debug=false to a json message
 			if (
-				$request->is('web/*') ||
+				$request->wantsJson() ||
 				$request->is('api/*') ||
-				$request->wantsJson()
+				$request->is('web/*')
 			) {
-				$msg = empty($e->getMessage()) ? 'Not Found' : $e->getMessage();
-				$code = empty($e->getCode()) ? 404 : $e->getCode();
+				$message = $e->getMessage();
+
+				if ($e instanceof QueryException || $e instanceof PDOException) {
+					$message = 'Database error.';
+				}
+
+				$message = empty($message) ? 'Unknown Exception.' : $message;
+
+				$status = ($e->getCode() >= 100 && $e->getCode() <= 599) ? $e->getCode() : 422;
 
 				if ($e instanceof AuthenticationException) {
-					$code = 401;
+					$status = 401;
 				}
 
 				if ($e instanceof NotFoundHttpException) {
-					$msg = 'Not Found';
-				}
-
-				if ((int) $code < 100 || (int) $code > 599) {
-					$code = 422;
+					$message = 'Not Found.';
 				}
 
 				if (config('webi.settings.translate_response') == true) {
-					$msg = trans($msg);
+					$message = trans($message);
 				}
+
+				$data['message'] = $message;
+				$data['code'] = $status;
+				$data['data'] = null;
 
 				if (config('app.debug')) {
-					return response()->json([
-						'message' => $msg,
-						'code' => $code,
-						'ex' => [
-							'name' => $this->getClassName(get_class($e)),
-							'namespace' => get_class($e),
-							'message' => $e->getMessage(),
-							'code' => $e->getCode(),
-						],
-					], $code);
+					$data['error'] = [
+						'exception' => get_class($e),
+						'file' => $e->getFile(),
+						'line' => $e->getLine(),
+						'trace' => collect($e->getTrace())->map(fn ($trace) => Arr::except($trace, ['args']))->all(),
+					];
 				}
 
-				return response()->json([
-					'message' => $msg,
-					'code' => $code,
-				], $code);
+				return response()->json($data, $status, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
 			}
 		});
-	}
-
-	/**
-	 * Get exception class name without namespace.
-	 *
-	 * @return string
-	 */
-	static function getClassName($e)
-	{
-		$path = explode('\\', $e);
-		return array_pop($path);
 	}
 }

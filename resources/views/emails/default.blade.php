@@ -110,10 +110,7 @@
 			</div>
 
 			<div class="email-box-mid">
-				<p class="email-text">
-					@lang(config('webi.email.message.reset_password', 'This is your new password.'))
-				</p>
-				<password>{{ $password }}</password>
+				<p class="email-text">{{ $content }}</p>
 			</div>
 
 			<div class="email-box-bot">

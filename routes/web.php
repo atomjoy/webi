@@ -39,4 +39,11 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'webi-locale'])->
 	Route::middleware(['auth', 'webi-role:admin'])->group(function () {
 		Route::get('/test/admin', [WebiUserDetails::class, 'index'])->name('test.admin');
 	});
+
+	// Fallback
+	Route::fallback(function () {
+		return response()->json([
+			'message' => 'Invalid api route path or request method.'
+		], 400);
+	});
 });

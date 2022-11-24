@@ -39,7 +39,7 @@ MAIL_FROM_ADDRESS=noreply@local.host
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-## Copy locales to laravel app
+## Copy locales to Laravel app/lang
 
 ```sh
 php artisan vendor:publish --tag=webi-lang-en
@@ -66,6 +66,12 @@ php artisan --env=testing migrate:fresh
   <testsuite name="Webi">
     <directory suffix="Test.php">./vendor/atomjoy/webi/tests</directory>
   </testsuite>
+  <testsuite name="WebiApi">
+    <directory suffix="Test.php">./vendor/atomjoy/webi/tests/Webi/Api</directory>
+  </testsuite>
+  <testsuite name="WebiLang">
+    <directory suffix="Test.php">./vendor/atomjoy/webi/tests/Webi/Lang</directory>
+  </testsuite>
 </testsuites>
 
 <php>
@@ -77,11 +83,18 @@ php artisan --env=testing migrate:fresh
 ## Run tests
 
 ```sh
-# Webi tests
-php artisan test --stop-on-failure --testsuite=Webi
+# Webi test
+php artisan vendor:publish --tag=webi-lang-en
+php artisan vendor:publish --tag=webi-lang-pl
+
+# Webi api
+php artisan test --stop-on-failure --testsuite=WebiApi
+
+# Webi api with pl
+php artisan test --stop-on-failure --testsuite=WebiLang
 
 # All tests
-php artisan test --stop-on-failure
+php artisan test --stop-on-failure --testsuite=Webi
 ```
 
 # Dev settings (ignore)

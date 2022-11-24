@@ -70,7 +70,7 @@ Route::get('/activate/{id}/{code}', [WebiActivate::class, 'index'])->middleware(
 ## Copy translations to app lang
 
 ```sh
-php artisan vendor:publish --tag=webi-lang-pl
+php artisan vendor:publish --tag=webi-lang-pl --force
 ```
 
 ## Create db tables

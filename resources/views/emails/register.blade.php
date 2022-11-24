@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 
 <head>
 	<meta charset="UTF-8" />
@@ -74,8 +74,8 @@
 			padding: 15px 25px;
 			margin: 20px auto;
 			min-width: 200px;
-			color: #ffc900;
-			background-color: #000;
+			color: #ffc900 !important;
+			background: #000 !important;
 			display: inline-block;
 			text-decoration: none;
 			text-align: center;
@@ -85,9 +85,9 @@
 		}
 
 		.email-button:hover {
-			color: #000;
-			background-color: #ffcc00;
-			box-shadow: 0px 5px 20px #ffcc0088;
+			color: #000 !important;
+			background: #ffcc00 !important;
+			box-shadow: 0px 5px 20px #ffcc0088 !important;
 		}
 
 		.email-logo {
@@ -103,23 +103,21 @@
 				@if (file_exists(public_path() . '/vendor/webi/logo/logo.png'))
 				<img class="email-logo" src="{{ $message->embed(public_path() . '/vendor/webi/logo/logo.png') }}" />
 				@endif
-				<h1>@lang('Welcome')!</h1>
+				<h1>@lang(config('webi.email.message.welcome', 'Welcome'))!</h1>
 				<h3>{{ $user->name }}</h3>
 			</div>
 
 			<div class="email-box-mid">
 				<p class="email-text">
-					@lang('Email-Activation-Message')
+					@lang(config('webi.email.message.activation', 'Activate youe email addres now.'))
 				</p>
-				<a class="email-button"
-					href="{{ request()->getSchemeAndHttpHost() }}/activate/{{ $user->id }}/{{ $user->code }}?locale={{ app()->getLocale() }}"
-					target="_blank">
+				<a class="email-button" href="{{ request()->getSchemeAndHttpHost() }}/activate/{{ $user->id }}/{{ $user->code }}?locale={{ app()->getLocale() }}" target="_blank">
 					@lang('Confirm email')
 				</a>
 			</div>
 
 			<div class="email-box-bot">
-				<div class="email-regards">@lang('Have a nice day!')</div>
+				<div class="email-regards">@lang(config('webi.email.message.regards', 'Have a nice day!'))</div>
 			</div>
 		</div>
 	</div>

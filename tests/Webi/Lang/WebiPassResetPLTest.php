@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi;
+namespace Tests\Webi\Lang;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +13,7 @@ use App\Models\User;
 	php artisan test --testsuite=Webi --stop-on-failure
 */
 
-class WebiPassResetTest extends TestCase
+class WebiPassResetPLTest extends TestCase
 {
 	use RefreshDatabase;
 
@@ -26,12 +26,14 @@ class WebiPassResetTest extends TestCase
 	/** @test */
 	function reset_password_errors()
 	{
+		app()->setLocale('pl');
+
 		$res = $this->postJson('/web/api/reset', [
 			'email' => '',
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The email field is required.'
+			'message' => 'Pole adres email jest wymagane.'
 		]);
 
 		$res = $this->postJson('/web/api/reset', [
@@ -39,13 +41,15 @@ class WebiPassResetTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'message' => 'The email must be a valid email address.'
+			'message' => 'Pole adres email nie jest poprawnym adresem e-mail.'
 		]);
 	}
 
 	/** @test */
 	function user_reset_password()
 	{
+		app()->setLocale('pl');
+
 		Event::fake([MessageSent::class]);
 
 		$user = User::factory()->create();
@@ -55,7 +59,7 @@ class WebiPassResetTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'A new password has been sent to the e-mail address provided.'
+			'message' => 'Wysłano hasło na podany adres email.'
 		]);
 
 		Event::assertDispatched(MessageSent::class, function ($e) use ($user) {
@@ -72,7 +76,7 @@ class WebiPassResetTest extends TestCase
 			]);
 
 			$res->assertStatus(200)->assertJson([
-				'message' => 'Authenticated.'
+				'message' => 'Zalogowany.'
 			]);
 
 			return true;
