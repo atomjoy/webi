@@ -43,5 +43,6 @@
 	"Have a nice day!": "Have a nice day!",
 	"Not Found": "Not Found",
 	"Unauthorized Role": "Unauthorized role.",
-	"Unauthorized User": "Unauthorized user."
+	"Unauthorized User": "Unauthorized user.",
+	"Invalid api route path or request method.": "Invalid api route path or request method."
 }

@@ -43,5 +43,6 @@
 	"Have a nice day!": "Do zobaczenia, miłego dnia!",
 	"Not Found": "Nie istnieje",
 	"Unauthorized Role": "Nieautoryzowana rola.",
-	"Unauthorized User": "Nieautoryzowany użytkownik."
+	"Unauthorized User": "Nieautoryzowany użytkownik.",
+	"Invalid api route path or request method.": "Niepoprawny adres url lub metoda http."
 }
