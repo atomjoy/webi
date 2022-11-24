@@ -59,11 +59,12 @@ class WebiPassResetTest extends TestCase
 		]);
 
 		Event::assertDispatched(MessageSent::class, function ($e) use ($user) {
+			$subject = $e->message->getSubject();
+			$this->assertMatchesRegularExpression('/Your new password/', $subject);
+
 			// $html = $e->message->getBody();
 			$html = $e->message->getHtmlBody();
-
 			$this->assertMatchesRegularExpression('/word>[a-zA-Z0-9]+<\/pass/', $html);
-
 			$pass = $this->getPassword($html);
 
 			$res = $this->postJson('/web/api/login', [
