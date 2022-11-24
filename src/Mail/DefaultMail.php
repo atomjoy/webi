@@ -40,7 +40,7 @@ class DefaultMail extends Mailable
 	{
 		return new Envelope(
 			// from: new Address('hello@email.sample', 'Demo mail'),
-			subject: $this->subject,
+			subject: trans($this->subject),
 		);
 	}
 
@@ -52,7 +52,7 @@ class DefaultMail extends Mailable
 	public function content()
 	{
 		return new Content(
-			view: 'emails.default',
+			view: 'webi::emails.default',
 		);
 	}
 

@@ -15,6 +15,7 @@
 	"Confirm email address.": "Confirm email address.",
 	"Authenticated.": "Authenticated.",
 	"Database error.": "Database error.",
+	"Unknown Exception.": "Nieznany Wyjątek",
 	"A new password has been sent to the e-mail address provided.": "A new password has been sent to the e-mail address provided.",
 	"Invalid current password.": "Invalid current password.",
 	"Password has been updated.": "Password has been updated.",
@@ -30,8 +31,8 @@
 	"Locale has not been changed.": "Locale has not been changed.",
 	"Not authenticated.": "Not authenticated.",
 	"Welcome": "Welcome",
-	"🙂 Your new password": "🙂 Your new password",
-	"👋 Account activation": "👋 Account activation",
+	"Your new password": "🙂 Your new password",
+	"Account activation": "👋 Account activation",
 	"Confirm your email address": "Confirm your email address",
 	"Confirm email": "Confirm email",
 	"The account has not been activated.": "The account has not been activated.",
@@ -39,10 +40,11 @@
 	"An account with this email address exists. Reset your password.": "An account with this email address exists. Reset your password.",
 	"The account has not been created.": "The account has not been created.",
 	"Email has not been activated.": "Email has not been activated.",
-	"Email-Activation-Message": "This activation e-mail is sent to the e-mail address that you registered on our site. To activate your account, please click on the link below.",
+	"This activation e-mail is sent to the e-mail address that you registered on our site. To activate your account, please click on the link below.": "This activation e-mail is sent to the e-mail address that you registered on our site. To activate your account, please click on the link below.",
 	"Have a nice day!": "Have a nice day!",
 	"Not Found": "Not Found",
 	"Unauthorized Role": "Unauthorized role.",
 	"Unauthorized User": "Unauthorized user.",
-	"Invalid api route path or request method.": "Invalid api route path or request method."
+	"Invalid api route path or request method.": "Invalid api route path or request method.",
+	"This is your new password.": "This is your new password."
 }

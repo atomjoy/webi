@@ -12,8 +12,8 @@ return [
 	// Emails text
 	'email' => [
 		'subject' => [
-			'password' => '🙂 Your new password',
-			'register' => '👋 Account activation'
+			'password' => 'Your new password',
+			'register' => 'Account activation'
 		],
 		'message' => [
 			'welcome' => 'Welcome',

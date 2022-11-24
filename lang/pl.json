@@ -15,6 +15,7 @@
 	"Confirm email address.": "Musisz potwierdziź adres email.",
 	"Authenticated.": "Zalogowany.",
 	"Database error.": "Błąd bazy danych.",
+	"Unknown Exception.": "Niepoprawny Wyjątek.",
 	"A new password has been sent to the e-mail address provided.": "Wysłano hasło na podany adres email.",
 	"Invalid current password.": "Podaj aktualne hasło.",
 	"Password has been updated.": "Zaktualizowano hasło.",
@@ -30,8 +31,8 @@
 	"Locale has not been changed.": "Nie zmieniono języka.",
 	"Not authenticated.": "Nie zalogowany.",
 	"Welcome": "Witaj",
-	"🙂 Your new password": "🙂 Twoje nowe hasło",
-	"👋 Account activation": "👋 Aktywacja konta",
+	"Your new password": "🙂 Twoje nowe hasło",
+	"Account activation": "👋 Aktywacja konta",
 	"Confirm your email address": "Musisz potwierdzić swój adres email",
 	"Confirm email": "Potwierdź email",
 	"The account has not been activated.": "Aktywuj swoje konto.",
@@ -39,10 +40,11 @@
 	"An account with this email address exists. Reset your password.": "Konto z takim adresem email istnieje. Zresetuj swoje hasło.",
 	"The account has not been created.": "Konto nie zostało utworzone.",
 	"Email has not been activated.": "Nie można potwierdzić adresu email.",
-	"Email-Activation-Message": "Ten e-mail aktywacyjny jest wysyłany na adres e-mail, który zarejestrowałeś na naszej stronie. Aby aktywować konto, kliknij poniższy link.",
+	"This activation e-mail is sent to the e-mail address that you registered on our site. To activate your account, please click on the link below.": "Ten e-mail aktywacyjny jest wysyłany na adres e-mail, który zarejestrowałeś na naszej stronie. Aby aktywować konto, kliknij poniższy link.",
 	"Have a nice day!": "Do zobaczenia, miłego dnia!",
 	"Not Found": "Nie istnieje",
 	"Unauthorized Role": "Nieautoryzowana rola.",
 	"Unauthorized User": "Nieautoryzowany użytkownik.",
-	"Invalid api route path or request method.": "Niepoprawny adres url lub metoda http."
+	"Invalid api route path or request method.": "Niepoprawny adres url lub metoda http.",
+	"This is your new password.": "Twoje nowe hasło do logowania."
 }

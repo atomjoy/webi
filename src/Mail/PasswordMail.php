@@ -22,7 +22,7 @@ class PasswordMail extends Mailable
 
 	public function build()
 	{
-		return $this->subject(trans('webi::webi.subject.password'))
+		return $this->subject(trans(config('webi.email.subject.password')))
 			->view('webi::emails.password');
 	}
 }
