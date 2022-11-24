@@ -42,8 +42,6 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'webi-locale'])->
 
 	// Fallback
 	Route::fallback(function () {
-		return response()->json([
-			'message' => 'Invalid api route path or request method.'
-		], 400);
+		throw new Exception('Invalid api route path or request method.', 400);
 	});
 });
