@@ -18,7 +18,7 @@ class WebiPassReset extends Controller
 	function index(WebiResetPasswordRequest $request)
 	{
 		$valid = $request->validated();
-		$password = uniqid();
+		$password = uniqid() . 'zX9#';
 		$user = null;
 
 		try {

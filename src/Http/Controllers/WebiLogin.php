@@ -35,25 +35,30 @@ class WebiLogin extends Controller
 				throw new Exception('The account has not been activated.', 422);
 			}
 
-			if (
-				$remember == true
-				&& !empty($user->remember_token)
-				&& request()->secure()
-			) {
-				// $name, $val, $minutes, $path,
-				// $domain, $secure, $httpOnly = true,
-				// $raw = false, $sameSite = 'strict'
-				Cookie::queue(
-					'_remember_token',
-					$user->remember_token,
-					env('APP_REMEBER_ME_MINUTES', 3456789),
-					'/',
-					'.' . request()->getHost(),
-					request()->secure(),
-					true,
-					false,
-					'strict'
-				);
+			if ($remember == true && request()->secure()) {
+				// Create token
+				if (empty($user->remember_token)) {
+					$user->remember_token = uniqid() . md5(microtime());
+					$user->save();
+				}
+
+				// Set cookie
+				if (!empty($user->remember_token)) {
+					// $name, $val, $minutes, $path,
+					// $domain, $secure, $httpOnly = true,
+					// $raw = false, $sameSite = 'strict'
+					Cookie::queue(
+						'_remember_token',
+						$user->remember_token,
+						env('APP_REMEBER_ME_MINUTES', 3456789),
+						'/',
+						'.' . request()->getHost(),
+						request()->secure(),
+						true,
+						false,
+						'strict'
+					);
+				}
 			}
 
 			request()->session()->regenerate();
