@@ -4,6 +4,7 @@ namespace Webi\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class WebiChangePasswordRequest extends FormRequest
 {
@@ -18,8 +19,12 @@ class WebiChangePasswordRequest extends FormRequest
 	{
 		return [
 			'password_current' => 'required',
-			'password' => 'required|min:11|confirmed',
-			'password_confirmation' => 'required'
+			'password' => [
+				'required',
+				Password::min(11)->letters()->mixedCase()->numbers()->symbols(),
+				'confirmed',
+			],
+			'password_confirmation' => 'required',
 		];
 	}
 

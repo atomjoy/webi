@@ -72,9 +72,63 @@ class WebiRegisterPLTest extends TestCase
 	}
 
 	/** @test */
+	function http_validate_user()
+	{
+		app()->setLocale('pl');
+
+		$user = User::factory()->make();
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#1',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'Potwierdzenie pola hasło nie zgadza się.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Password1234',
+			'password_confirmation' => 'Password1234',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'Pole hasło musi zawierać jeden znak specjalny.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'password1234#',
+			'password_confirmation' => 'password1234#',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Passwordoooo#',
+			'password_confirmation' => 'Passwordoooo#',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'Pole hasło musi zawierać jedną cyfrę.'
+		]);
+	}
+
+	/** @test */
 	function http_create_user()
 	{
-		$pass = 'password123';
+		app()->setLocale('pl');
+
+		$pass = 'Password1234#';
 
 		$user = User::factory()->make();
 
@@ -100,6 +154,9 @@ class WebiRegisterPLTest extends TestCase
 		$this->assertTrue(Hash::check($pass, $db_user->password));
 
 		Event::assertDispatched(MessageSent::class, function ($e) {
+			$subject = $e->message->getSubject();
+			$this->assertMatchesRegularExpression('/Aktywacja konta/', $subject);
+
 			$html = $e->message->getHtmlBody();
 			$this->assertStringContainsString("/activate", $html);
 			$this->assertMatchesRegularExpression('/\/activate\/[0-9]+\/[a-z0-9]+\?locale=[a-z]{2}"/i', $html);
@@ -211,8 +268,19 @@ class WebiRegisterPLTest extends TestCase
 		$res = $this->postJson('/web/api/register', [
 			'name' => $user->name,
 			'email' => $user->email,
-			'password' => 'password123',
+			'password' => 'password1234#',
 			'password_confirmation' => '',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#1',
 		]);
 
 		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([

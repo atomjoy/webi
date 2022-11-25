@@ -36,8 +36,8 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 	{
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123X',
-			'password' => 'password1234',
-			'password_confirmation' => 'password1234'
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#'
 		]);
 
 		$res->assertStatus(422)->assertJson([
@@ -61,13 +61,43 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
+			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
+		]);
+
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password123',
+			'password' => 'Password1234',
+			'password_confirmation' => 'Password1234'
+		]);
+
+		$res->assertStatus(422)->assertJson([
+			'message' => 'The password must contain at least one symbol.'
+		]);
+
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password123',
+			'password' => 'Passwordoooo#',
+			'password_confirmation' => 'Passwordoooo#'
+		]);
+
+		$res->assertStatus(422)->assertJson([
+			'message' => 'The password must contain at least one number.'
+		]);
+
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password123',
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#1'
+		]);
+
+		$res->assertStatus(422)->assertJson([
 			'message' => 'The password confirmation does not match.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123',
-			'password' => 'password1234',
-			'password_confirmation' => 'password1234'
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#'
 		]);
 
 		$res->assertStatus(200)->assertJson([
@@ -78,7 +108,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 
 		$res = $this->postJson('/web/api/login', [
 			'email' => $this->user->email,
-			'password' => 'password1234'
+			'password' => 'Password1234#'
 		]);
 
 		$res->assertStatus(200)->assertJson([

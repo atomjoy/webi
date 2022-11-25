@@ -72,9 +72,59 @@ class WebiRegisterTest extends TestCase
 	}
 
 	/** @test */
+	function http_validate_user()
+	{
+		$user = User::factory()->make();
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#1',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'The password confirmation does not match.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Password1234',
+			'password_confirmation' => 'Password1234',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'The password must contain at least one symbol.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'password1234#',
+			'password_confirmation' => 'password1234#',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Passwordoooo#',
+			'password_confirmation' => 'Passwordoooo#',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'The password must contain at least one number.'
+		]);
+	}
+
+	/** @test */
 	function http_create_user()
 	{
-		$pass = 'password123';
+		$pass = 'Password1234#';
 
 		$user = User::factory()->make();
 
@@ -201,8 +251,19 @@ class WebiRegisterTest extends TestCase
 		$res = $this->postJson('/web/api/register', [
 			'name' => $user->name,
 			'email' => $user->email,
-			'password' => 'password123',
+			'password' => 'password1234#',
 			'password_confirmation' => '',
+		]);
+
+		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
+			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
+		]);
+
+		$res = $this->postJson('/web/api/register', [
+			'name' => $user->name,
+			'email' => $user->email,
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#1',
 		]);
 
 		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([

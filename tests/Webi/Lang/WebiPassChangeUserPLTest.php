@@ -38,8 +38,38 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123X',
-			'password' => 'password1234',
-			'password_confirmation' => 'password1234'
+			'password' => 'password1234#',
+			'password_confirmation' => 'password1234#'
+		]);
+
+		$res->assertStatus(422)->assertJson([
+			'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.'
+		]);
+
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password123X',
+			'password' => 'Password1234',
+			'password_confirmation' => 'Password1234'
+		]);
+
+		$res->assertStatus(422)->assertJson([
+			'message' => 'Pole hasło musi zawierać jeden znak specjalny.'
+		]);
+
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password123X',
+			'password' => 'Passwordoooo#',
+			'password_confirmation' => 'Passwordoooo#'
+		]);
+
+		$res->assertStatus(422)->assertJson([
+			'message' => 'Pole hasło musi zawierać jedną cyfrę.'
+		]);
+
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password123X',
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#'
 		]);
 
 		$res->assertStatus(422)->assertJson([
@@ -58,8 +88,8 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123',
-			'password' => 'password1234',
-			'password_confirmation' => 'password'
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#1'
 		]);
 
 		$res->assertStatus(422)->assertJson([
@@ -68,8 +98,8 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 
 		$res = $this->postJson('/web/api/change-password', [
 			'password_current' => 'password123',
-			'password' => 'password1234',
-			'password_confirmation' => 'password1234'
+			'password' => 'Password1234#',
+			'password_confirmation' => 'Password1234#'
 		]);
 
 		$res->assertStatus(200)->assertJson([
@@ -80,7 +110,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 
 		$res = $this->postJson('/web/api/login', [
 			'email' => $this->user->email,
-			'password' => 'password1234'
+			'password' => 'Password1234#'
 		]);
 
 		$res->assertStatus(200)->assertJson([

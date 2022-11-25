@@ -5,6 +5,7 @@ namespace Webi\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Password;
 
 class WebiRegisterRequest extends FormRequest
 {
@@ -28,7 +29,11 @@ class WebiRegisterRequest extends FormRequest
 				'required', $email, 'max:191',
 				Rule::unique('users')->whereNull('deleted_at')
 			],
-			'password' => 'required|min:11|confirmed',
+			'password' => [
+				'required',
+				Password::min(11)->letters()->mixedCase()->numbers()->symbols(),
+				'confirmed',
+			],
 			'password_confirmation' => 'required'
 		];
 	}
