@@ -19,7 +19,7 @@ class WebiPassResetPLTest extends TestCase
 
 	function getPassword($html)
 	{
-		preg_match('/word>[a-zA-Z0-9]+<\/pass/', $html, $matches, PREG_OFFSET_CAPTURE);
+		preg_match('/word>[a-zA-Z0-9#]+<\/pass/', $html, $matches, PREG_OFFSET_CAPTURE);
 		return str_replace(['word>', '</pass'], '', end($matches)[0]);
 	}
 
@@ -68,7 +68,7 @@ class WebiPassResetPLTest extends TestCase
 
 			// $html = $e->message->getBody();
 			$html = $e->message->getHtmlBody();
-			$this->assertMatchesRegularExpression('/word>[a-zA-Z0-9]+<\/pass/', $html);
+			$this->assertMatchesRegularExpression('/word>[a-zA-Z0-9#]+<\/pass/', $html);
 			$pass = $this->getPassword($html);
 
 			$res = $this->postJson('/web/api/login', [
