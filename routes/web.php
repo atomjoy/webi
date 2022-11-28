@@ -25,8 +25,8 @@ Route::prefix('web/api')->name('web.api.')->middleware(['web', 'webi-locale'])->
 
 	// Only logged users
 	Route::middleware(['auth', 'webi-role:admin|worker|user'])->group(function () {
-		Route::get('/logout', [WebiLogout::class, 'index'])->name('logout');
 		Route::post('/change-password', [WebiPassChange::class, 'index'])->name('change-password');
+		Route::get('/logout', [WebiLogout::class, 'index'])->name('logout');
 		Route::get('/test/user', [WebiUserDetails::class, 'index'])->name('test.user');
 	});
 

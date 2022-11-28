@@ -5,6 +5,7 @@ namespace Webi\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+use Webi\Exceptions\WebiException;
 
 class WebiChangePasswordRequest extends FormRequest
 {
@@ -30,7 +31,7 @@ class WebiChangePasswordRequest extends FormRequest
 
 	public function failedValidation(Validator $validator)
 	{
-		throw new \Exception($validator->errors()->first(), 422);
+		throw new WebiException($validator->errors()->first());
 	}
 
 	function prepareForValidation()

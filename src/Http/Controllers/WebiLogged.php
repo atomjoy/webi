@@ -46,7 +46,7 @@ class WebiLogged extends Controller
 			return $this->jsonResponse('Not authenticated.', [
 				'locale' => app()->getLocale(),
 				'user' => null
-			], 422);
+			]);
 		}
 	}
 }

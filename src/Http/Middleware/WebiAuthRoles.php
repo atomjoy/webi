@@ -3,7 +3,7 @@
 namespace Webi\Http\Middleware;
 
 use Closure;
-use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -32,10 +32,10 @@ class WebiAuthRoles
 			if (Auth::check()) {
 				$user = Auth::user();
 				if (!in_array($user->role->value, $roles)) {
-					throw new Exception("Unauthorized Role.", 401);
+					throw new AuthenticationException("Unauthorized Role.");
 				}
 			} else {
-				throw new Exception("Unauthorized User.", 401);
+				throw new AuthenticationException("Unauthorized User.");
 			}
 		}
 

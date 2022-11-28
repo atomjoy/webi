@@ -2,11 +2,11 @@
 
 namespace Webi\Http\Controllers;
 
-use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiChangePasswordRequest;
 use Webi\Traits\Http\HasJsonResponse;
 
@@ -19,23 +19,19 @@ class WebiPassChange extends Controller
 		$valid = $request->validated();
 
 		if (Hash::check($valid['password_current'], Auth::user()->password)) {
-			try {
-				User::where([
-					'email' => $request->user()->email
-				])->update([
-					'password' => Hash::make($request->input('password')),
-					'ip' => $request->ip()
-				]);
 
-				return $this->jsonResponse('Password has been updated.');
-			} catch (Exception $e) {
-				report($e);
-				throw new Exception('Database error.', 422);
-			}
+			User::where([
+				'email' => $request->user()->email
+			])->update([
+				'password' => Hash::make($request->input('password')),
+				'ip' => $request->ip()
+			]);
+
+			return $this->jsonResponse('Password has been updated.');
 		} else {
-			throw new Exception('Invalid current password.', 422);
+			throw new WebiException('Invalid current password.');
 		}
 
-		throw new Exception('Password has not been updated.', 422);
+		throw new WebiException('Password has not been updated.');
 	}
 }

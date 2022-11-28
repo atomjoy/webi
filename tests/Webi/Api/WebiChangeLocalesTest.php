@@ -21,7 +21,7 @@ class WebiChangeLocalesTest extends TestCase
 		]);
 
 		$res = $this->getJson('/web/api/locale/error');
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Locale has not been changed.',
 		]);
 
@@ -31,7 +31,7 @@ class WebiChangeLocalesTest extends TestCase
 		$res = $this->getJson('/web/api/csrf');
 		$res->assertStatus(200)->assertJson([
 			'message' => 'Csrf token created.',
-			'data' => ['locale' => 'en', 'counter' => 2],
+			'data' => ['locale' => 'en', 'session_locale' => 'en', 'counter' => 2],
 		]);
 	}
 }

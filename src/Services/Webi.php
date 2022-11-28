@@ -5,17 +5,19 @@ namespace Webi\Services;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Webi\Exceptions\WebiException;
+use Webi\Traits\Http\HasJsonResponse;
 
 class Webi
 {
+	use HasJsonResponse;
+
 	function csrf()
 	{
 		request()->session()->regenerateToken();
-
 		session(['webi_cnt' => session('webi_cnt') + 1]);
 
-		return response([
-			'message' => trans('Csrf token created.'),
+		return $this->jsonResponse(trans('Csrf token created.'), [
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
 			'session_locale' => session('locale'),
@@ -26,16 +28,14 @@ class Webi
 	{
 		if (strlen($locale) == 2) {
 			app()->setLocale($locale);
-
 			session(['locale' => app()->getLocale()]);
 
-			return response()->json([
-				'message' => trans('Locale has been changed.'),
+			return $this->jsonResponse('Locale has been changed.', [
 				'locale' => app()->getLocale(),
 			], 200);
 		}
 
-		throw new Exception('Locale has not been changed.', 422);
+		throw new WebiException('Locale has not been changed.');
 	}
 
 	function logout()
@@ -55,11 +55,9 @@ class Webi
 			session(['locale' => config('app.locale')]);
 		} catch (Exception $e) {
 			report($e);
-			throw new Exception('Logged out error.', 422);
+			throw new WebiException('Logged out error.');
 		}
 
-		return response()->json([
-			'message' => trans('Logged out.')
-		]);
+		return $this->jsonResponse('Logged out.');
 	}
 }

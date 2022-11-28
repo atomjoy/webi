@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Webi\Exceptions\WebiException;
 use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogout extends Controller
@@ -35,7 +36,7 @@ class WebiLogout extends Controller
 			session(['locale' => config('app.locale')]);
 		} catch (Exception $e) {
 			report($e);
-			throw new Exception('Logged out error.', 422);
+			throw new WebiException('Logged out error.', 422);
 		}
 
 		return $this->jsonResponse('Logged out.');

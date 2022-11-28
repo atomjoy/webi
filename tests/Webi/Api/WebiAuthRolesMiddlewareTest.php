@@ -67,12 +67,14 @@ class WebiAuthRolesMiddlewareTest extends AuthenticatedTestCase
 
 		$res = $this->get('web/api/test/admin');
 
-		$res->assertStatus(401);
+		$res->assertStatus(200);
 
 		$res = $this->get('web/api/test/worker');
 
-		$res->assertStatus(401);
+		$res->assertStatus(200);
 
 		$res = $this->get('web/api/test/user');
+
+		$res->assertStatus(200);
 	}
 }

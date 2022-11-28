@@ -31,7 +31,7 @@ class WebiActivatePLTest extends TestCase
 		$res = $this->get('/web/api/activate/0/' . $user->code);
 
 		// Only numbers
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole id musi być nie mniejsze od 1.'
 		]);
 
@@ -39,14 +39,14 @@ class WebiActivatePLTest extends TestCase
 		$res = $this->get('/web/api/activate/error123/' . $user->code);
 
 		// Only numbers
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole id musi być liczbą.'
 		]);
 
 		// Invalid user id
 		$res = $this->get('/web/api/activate/123/' . $user->code);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Niepoprawny kod aktywacyjny.'
 		]);
 	}
@@ -68,21 +68,21 @@ class WebiActivatePLTest extends TestCase
 		// min:6
 		$res = $this->get('/web/api/activate/' . $user->id . '/er123');
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole code musi mieć przynajmniej 6 znaków.'
 		]);
 
 		// max:30
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . md5('tolongcode'));
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole code nie może być dłuższe niż 30 znaków.'
 		]);
 
 		// Code valid but not exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/errorcode123');
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Nie można potwierdzić adresu email.'
 		]);
 	}

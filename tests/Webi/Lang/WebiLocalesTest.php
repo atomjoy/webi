@@ -23,7 +23,7 @@ class WebiLocalesTest extends TestCase
 
 		$res = $this->getJson('/web/api/locale/error');
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Nie zmieniono języka.',
 		]);
 	}
@@ -40,7 +40,7 @@ class WebiLocalesTest extends TestCase
 
 		$res = $this->getJson('/web/api/locale/error');
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Locale has not been changed.',
 		]);
 	}

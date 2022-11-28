@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Webi\Events\WebiUserCreated;
+use Webi\Exceptions\WebiException;
 use Webi\Mail\RegisterMail;
 use Webi\Http\Requests\WebiRegisterRequest;
 use Webi\Traits\Http\HasJsonResponse;
@@ -22,17 +23,12 @@ class WebiRegister extends Controller
 		$user_old = null;
 		$user = null;
 
-		try {
-			$user_old = User::withTrashed()
-				->where('email', $valid['email'])
-				->first();
-		} catch (Exception $e) {
-			report($e);
-			throw new Exception('Database error.', 422);
-		}
+		$user_old = User::withTrashed()
+			->where('email', $valid['email'])
+			->first();
 
 		if ($user_old instanceof User) {
-			throw new Exception('An account with this email address exists. Reset your password.', 422);
+			throw new WebiException('An account with this email address exists. Reset your password.');
 		}
 
 		try {
@@ -48,7 +44,7 @@ class WebiRegister extends Controller
 			]);
 		} catch (Exception $e) {
 			report($e);
-			throw new Exception('The account has not been created.', 422);
+			throw new WebiException('The account has not been created.');
 		}
 
 		try {
@@ -57,7 +53,7 @@ class WebiRegister extends Controller
 				->send(new RegisterMail($user));
 		} catch (Exception $e) {
 			report($e);
-			throw new Exception('Unable to send activation email, please try to reset your password.', 422);
+			throw new WebiException('Unable to send activation email, please try to reset your password.');
 		}
 
 		// Event

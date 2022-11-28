@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Webi\Exceptions\WebiException;
 use Webi\Mail\PasswordMail;
 use Webi\Http\Requests\WebiResetPasswordRequest;
 use Webi\Traits\Http\HasJsonResponse;
@@ -21,24 +22,19 @@ class WebiPassReset extends Controller
 		$password = uniqid() . 'zX9#';
 		$user = null;
 
-		try {
-			$user = User::withTrashed()
-				->where('email', $valid['email'])
-				->first();
+		$user = User::withTrashed()
+			->where('email', $valid['email'])
+			->first();
 
-			if (
-				$user instanceof User
-				&& !empty($user->deleted_at)
-			) {
-				$user->restore(); // Restore if softDeleted
-			}
-		} catch (Exception $e) {
-			report($e);
-			throw new Exception('Database error.', 422);
+		if (
+			$user instanceof User
+			&& !empty($user->deleted_at)
+		) {
+			$user->restore(); // Restore if softDeleted
 		}
 
 		if (!$user instanceof User) {
-			throw new Exception('Email address does not exists.', 422);
+			throw new WebiException('Email address does not exists.');
 		}
 
 		try {
@@ -50,7 +46,7 @@ class WebiPassReset extends Controller
 			$user->save();
 		} catch (Exception $e) {
 			report($e);
-			throw new Exception('Password has not been updated.', 422);
+			throw new WebiException('Password has not been updated.');
 		}
 
 		try {
@@ -59,7 +55,7 @@ class WebiPassReset extends Controller
 				->send(new PasswordMail($user, $password));
 		} catch (Exception $e) {
 			report($e);
-			throw new Exception('Unable to send e-mail, please try again later.');
+			throw new WebiException('Unable to send e-mail, please try again later.');
 		}
 
 		return $this->jsonResponse('A new password has been sent to the e-mail address provided.');

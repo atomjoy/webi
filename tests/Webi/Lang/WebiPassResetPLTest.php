@@ -32,7 +32,7 @@ class WebiPassResetPLTest extends TestCase
 			'email' => '',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole adres email jest wymagane.'
 		]);
 
@@ -40,7 +40,7 @@ class WebiPassResetPLTest extends TestCase
 			'email' => 'error###email',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole adres email nie jest poprawnym adresem e-mail.'
 		]);
 	}

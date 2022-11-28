@@ -42,7 +42,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password1234#'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.'
 		]);
 
@@ -52,7 +52,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole hasło musi zawierać jeden znak specjalny.'
 		]);
 
@@ -62,7 +62,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Passwordoooo#'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole hasło musi zawierać jedną cyfrę.'
 		]);
 
@@ -72,7 +72,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Podaj aktualne hasło.'
 		]);
 
@@ -82,7 +82,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password123'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.'
 		]);
 
@@ -92,7 +92,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#1'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Potwierdzenie pola hasło nie zgadza się.'
 		]);
 
@@ -133,7 +133,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password1234'
 		]);
 
-		$res->assertStatus(401)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Nie zalogowany.'
 		]);
 	}

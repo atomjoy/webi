@@ -4,6 +4,7 @@ namespace Webi\Http\Controllers;
 
 use Exception;
 use App\Http\Controllers\Controller;
+use Webi\Exceptions\WebiException;
 use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLocale extends Controller
@@ -22,6 +23,6 @@ class WebiLocale extends Controller
 			]);
 		}
 
-		throw new Exception('Locale has not been changed.', 422);
+		throw new WebiException('Locale has not been changed.');
 	}
 }

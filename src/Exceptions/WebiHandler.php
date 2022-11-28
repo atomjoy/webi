@@ -8,7 +8,9 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Arr;
 use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Webi\Exceptions\WebiException;
 
 class WebiHandler extends ExceptionHandler
 {
@@ -50,41 +52,52 @@ class WebiHandler extends ExceptionHandler
 	 */
 	public function register()
 	{
-		$this->reportable(function (Throwable $e) {
-			//
-		});
-
 		$this->renderable(function (Throwable $e, $request) {
 			// Change "ServerError" Exception when app_debug=false to a json message
 			if (
-				$request->wantsJson() ||
-				$request->is('api/*') ||
-				$request->is('web/*')
+				$request->is('web/api/*') ||
+				$request->wantsJson()
 			) {
+				$alert = 'error';
 				$message = $e->getMessage();
 
+				$message = empty($message) ? 'Unknown Exception.' : $message;
+				$status = $this->validCode($e) ? $e->getCode() : 422;
+
 				if ($e instanceof QueryException || $e instanceof PDOException) {
+					$status = 500;
+					$alert = 'error';
 					$message = 'Database error.';
 				}
 
-				$message = empty($message) ? 'Unknown Exception.' : $message;
-
-				$status = ($e->getCode() >= 100 && $e->getCode() <= 599) ? $e->getCode() : 422;
+				if ($e instanceof WebiException) {
+					$status = 200;
+					$alert = 'danger';
+				}
 
 				if ($e instanceof AuthenticationException) {
-					$status = 401;
+					$status = 200;
+					$alert = 'danger';
+				}
+
+				if ($e instanceof ValidationException) {
+					$status = 200;
+					$alert = 'danger';
 				}
 
 				if ($e instanceof NotFoundHttpException) {
+					$status = 200;
+					$alert = 'danger';
 					$message = 'Not Found.';
 				}
 
 				if (config('webi.settings.translate_response') == true) {
-					$this->refreshLocale($request);
+					$this->updateLocale($request);
 					$message = trans($message);
 				}
 
 				$data['message'] = $message;
+				$data['alert'] = $alert;
 				$data['code'] = $status;
 				$data['data'] = null;
 
@@ -102,12 +115,27 @@ class WebiHandler extends ExceptionHandler
 		});
 	}
 
-	function refreshLocale($request)
+	/**
+	 * Refresh session locale.
+	 *
+	 * @return void
+	 */
+	public function updateLocale($request)
 	{
 		$lang =  session('locale', config('app.locale'));
 		app()->setLocale($lang);
 		if ($request->has('locale')) {
 			app()->setLocale($request->query('locale'));
 		}
+	}
+
+	/**
+	 * Http codes validation.
+	 *
+	 * @return bool
+	 */
+	public function validCode($e)
+	{
+		return ($e->getCode() >= 100 && $e->getCode() <= 599) ? true : false;
 	}
 }

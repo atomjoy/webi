@@ -2,12 +2,12 @@
 
 namespace Webi\Http\Controllers;
 
-use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Webi\Events\WebiUserLogged;
+use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiLoginRequest;
 use Webi\Traits\Http\HasJsonResponse;
 
@@ -28,11 +28,11 @@ class WebiLogin extends Controller
 			$user = Auth::user(); // request()->user();
 
 			if (!$user instanceof User) {
-				throw new Exception('Invalid credentials.', 422);
+				throw new WebiException('Invalid credentials.');
 			}
 
 			if (empty($user->email_verified_at)) {
-				throw new Exception('The account has not been activated.', 422);
+				throw new WebiException('The account has not been activated.');
 			}
 
 			if ($remember == true && request()->secure()) {
@@ -70,7 +70,7 @@ class WebiLogin extends Controller
 				'user' => $user,
 			]);
 		} else {
-			throw new Exception('Invalid credentials.', 422);
+			throw new WebiException('Invalid credentials.');
 		}
 	}
 }

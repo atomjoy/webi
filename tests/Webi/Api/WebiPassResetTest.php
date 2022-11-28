@@ -30,7 +30,7 @@ class WebiPassResetTest extends TestCase
 			'email' => '',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The email field is required.'
 		]);
 
@@ -38,7 +38,7 @@ class WebiPassResetTest extends TestCase
 			'email' => 'error###email',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The email must be a valid email address.'
 		]);
 	}

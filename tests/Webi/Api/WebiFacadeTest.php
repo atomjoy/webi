@@ -34,8 +34,7 @@ class WebiFacadeTest extends TestCase
 		$res = $this->get('/web/api/csrf/facade');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Csrf token created.',
-			'counter' => 1,
+			'message' => 'Csrf token created.'
 		]);
 	}
 }

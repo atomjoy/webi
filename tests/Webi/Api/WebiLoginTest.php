@@ -21,6 +21,16 @@ class WebiLoginTest extends TestCase
 	use RefreshDatabase;
 
 	/** @test */
+	function login_user_method()
+	{
+		$res = $this->getJson('/web/api/login');
+
+		$res->assertStatus(400)->assertJson([
+			'message' => 'Invalid api route path or request method.'
+		]);
+	}
+
+	/** @test */
 	function login_user_errors()
 	{
 		$user = User::factory()->create();
@@ -30,7 +40,7 @@ class WebiLoginTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The email field is required.'
 		]);
 
@@ -39,7 +49,7 @@ class WebiLoginTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The email must be a valid email address.'
 		]);
 
@@ -48,7 +58,7 @@ class WebiLoginTest extends TestCase
 			'password' => '',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password field is required.'
 		]);
 
@@ -57,7 +67,7 @@ class WebiLoginTest extends TestCase
 			'password' => 'password',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password must be at least 11 characters.'
 		]);
 	}

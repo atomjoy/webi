@@ -4,7 +4,7 @@ namespace Webi\Traits\Http;
 
 trait HasJsonResponse
 {
-	function jsonResponse($message, $data = null, $code = 200)
+	function jsonResponse($message, $data = null, $code = 200, $alert = 'success')
 	{
 		if ((int) $code < 100 || (int) $code > 599) {
 			$code = 422;
@@ -16,6 +16,7 @@ trait HasJsonResponse
 
 		return response()->json([
 			'message' => $message,
+			'alert' => $alert,
 			'code' => $code,
 			'data' => $data,
 		], $code);

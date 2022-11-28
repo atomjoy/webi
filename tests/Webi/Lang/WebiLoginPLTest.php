@@ -21,6 +21,18 @@ class WebiLoginPLTest extends TestCase
 	use RefreshDatabase;
 
 	/** @test */
+	function login_user_emethod()
+	{
+		app()->setLocale('pl');
+
+		$res = $this->getJson('/web/api/login');
+
+		$res->assertStatus(400)->assertJson([
+			'message' => 'Niepoprawny adres url lub metoda http.'
+		]);
+	}
+
+	/** @test */
 	function login_user_errors()
 	{
 		app()->setLocale('pl');
@@ -32,7 +44,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole adres email jest wymagane.'
 		]);
 
@@ -41,7 +53,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole adres email nie jest poprawnym adresem e-mail.'
 		]);
 
@@ -50,7 +62,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => '',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole hasło jest wymagane.'
 		]);
 
@@ -59,7 +71,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => 'password',
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.'
 		]);
 	}

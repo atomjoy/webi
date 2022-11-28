@@ -51,7 +51,7 @@ class WebiLoggedTest extends TestCase
 
 		$res = $this->getJson('/web/api/logged');
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Not authenticated.'
 		])->assertJsonStructure([
 			'data' => ['user']

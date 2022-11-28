@@ -2,9 +2,9 @@
 
 namespace Webi\Http\Controllers;
 
-use Exception;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiActivateRequest;
 use Webi\Traits\Http\HasJsonResponse;
 
@@ -17,32 +17,22 @@ class WebiActivate extends Controller
 		$valid = $request->validated();
 		$user = null;
 
-		try {
-			$user = User::where('id', (int) $valid['id'])->first();
-		} catch (Exception $e) {
-			report($e);
-			throw new Exception("Database error.", 422);
-		}
+		$user = User::where('id', (int) $valid['id'])->first();
 
 		if (!$user instanceof User) {
-			throw new Exception("Invalid activation code.", 422);
+			throw new WebiException("Invalid activation code.");
 		}
 
 		if (!empty($user->email_verified_at)) {
 			return $this->jsonResponse('The email address has already been confirmed.');
 		}
 
-		try {
-			if ($user->code == strip_tags($valid['code'])) {
-				$user->update(['email_verified_at' => now()]);
+		if ($user->code == strip_tags($valid['code'])) {
+			$user->update(['email_verified_at' => now()]);
 
-				return $this->jsonResponse('Email has been confirmed.');
-			}
-		} catch (Exception $e) {
-			report($e);
-			throw new Exception("Database error.", 422);
+			return $this->jsonResponse('Email has been confirmed.');
 		}
 
-		throw new Exception("Email has not been activated.", 422);
+		throw new WebiException("Email has not been activated.");
 	}
 }

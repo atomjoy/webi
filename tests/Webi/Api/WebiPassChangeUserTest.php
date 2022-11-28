@@ -40,7 +40,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Invalid current password.'
 		]);
 
@@ -50,7 +50,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password123'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password must be at least 11 characters.'
 		]);
 
@@ -60,7 +60,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
 		]);
 
@@ -70,7 +70,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password must contain at least one symbol.'
 		]);
 
@@ -80,7 +80,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Passwordoooo#'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password must contain at least one number.'
 		]);
 
@@ -90,7 +90,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#1'
 		]);
 
-		$res->assertStatus(422)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'The password confirmation does not match.'
 		]);
 
@@ -129,7 +129,7 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password1234'
 		]);
 
-		$res->assertStatus(401)->assertJson([
+		$res->assertStatus(200)->assertJson([
 			'message' => 'Unauthenticated.'
 		]);
 	}
