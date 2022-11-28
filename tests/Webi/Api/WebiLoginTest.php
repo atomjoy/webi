@@ -115,13 +115,13 @@ class WebiLoginTest extends TestCase
 			'message' => 'Authenticated.'
 		]);
 
-		$token = User::where('email', $user->email)->first()->remember_token;
+		// $token = User::where('email', $user->email)->first()->remember_token;
 
-		$res = $this->withCookie('_remeber_token', $token)->get('/web/api/logged');
+		// $res = $this->withCookie('_remeber_token', $token)->get('/web/api/logged');
 
-		$res->assertStatus(200)->assertJson([
-			'message' => 'Authenticated via remember me.'
-		]);
+		// $res->assertStatus(200)->assertJson([
+		// 	'message' => 'Authenticated via remember me.'
+		// ]);
 	}
 
 	/** @test */

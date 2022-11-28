@@ -25,7 +25,11 @@ class WebiLogin extends Controller
 
 		if (Auth::attempt($valid, $remember)) {
 
-			$user = Auth::user(); // request()->user();
+			request()->session()->regenerate();
+
+			$user = Auth::user();
+
+			Auth::login($user, $remember);
 
 			if (!$user instanceof User) {
 				throw new WebiException('Invalid credentials.');
@@ -35,35 +39,6 @@ class WebiLogin extends Controller
 				throw new WebiException('The account has not been activated.');
 			}
 
-			if ($remember == true && request()->secure()) {
-				// Create token
-				if (empty($user->remember_token)) {
-					$user->remember_token = uniqid() . md5(microtime());
-					$user->save();
-				}
-
-				// Set cookie
-				if (!empty($user->remember_token)) {
-					// $name, $val, $minutes, $path,
-					// $domain, $secure, $httpOnly = true,
-					// $raw = false, $sameSite = 'strict'
-					Cookie::queue(
-						'_remember_token',
-						$user->remember_token,
-						env('APP_REMEBER_ME_MINUTES', 3456789),
-						'/',
-						'.' . request()->getHost(),
-						request()->secure(),
-						true,
-						false,
-						'strict'
-					);
-				}
-			}
-
-			request()->session()->regenerate();
-
-			// Event
 			WebiUserLogged::dispatch($user, request()->ip());
 
 			return $this->jsonResponse('Authenticated.', [

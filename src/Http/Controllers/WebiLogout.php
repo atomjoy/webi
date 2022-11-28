@@ -17,18 +17,9 @@ class WebiLogout extends Controller
 	function index(Request $request)
 	{
 		try {
-			// If Logged
 			if (Auth::check()) {
-				// Delete remember me token
-				if ($request->user() instanceof User) {
-					$request->user()->update([
-						'remember_token' => null
-					]);
-				}
-				// Logout
 				Auth::logout();
 			}
-
 			// Delete session
 			$request->session()->flush();
 			$request->session()->invalidate();

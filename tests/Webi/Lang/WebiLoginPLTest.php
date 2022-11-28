@@ -121,13 +121,13 @@ class WebiLoginPLTest extends TestCase
 			'message' => 'Zalogowany.'
 		]);
 
-		$token = User::where('email', $user->email)->first()->remember_token;
+		// $token = User::where('email', $user->email)->first()->remember_token;
 
-		$res = $this->withCookie('_remeber_token', $token)->get('/web/api/logged');
+		// $res = $this->withCookie('_remeber_token', $token)->get('/web/api/logged');
 
-		$res->assertStatus(200)->assertJson([
-			'message' => 'Uwierzytelniono z zapamietaj mnie.'
-		]);
+		// $res->assertStatus(200)->assertJson([
+		// 	'message' => 'Uwierzytelniono z zapamietaj mnie.'
+		// ]);
 	}
 
 	/** @test */
