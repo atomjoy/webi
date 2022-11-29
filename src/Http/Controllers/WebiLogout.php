@@ -3,7 +3,6 @@
 namespace Webi\Http\Controllers;
 
 use Exception;
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +19,7 @@ class WebiLogout extends Controller
 			if (Auth::check()) {
 				Auth::logout();
 			}
-			// Delete session
+
 			$request->session()->flush();
 			$request->session()->invalidate();
 			$request->session()->regenerateToken();

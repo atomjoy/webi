@@ -4,7 +4,6 @@ namespace Webi\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Webi\Traits\Http\HasJsonResponse;
 
 class WebiCsrf extends Controller
@@ -20,7 +19,6 @@ class WebiCsrf extends Controller
 		return $this->jsonResponse('Csrf token created.', [
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
-			'session_locale' => session('locale'),
 		]);
 	}
 }

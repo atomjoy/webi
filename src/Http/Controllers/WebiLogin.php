@@ -5,7 +5,6 @@ namespace Webi\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cookie;
 use Webi\Events\WebiUserLogged;
 use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiLoginRequest;
@@ -25,11 +24,9 @@ class WebiLogin extends Controller
 
 		if (Auth::attempt($valid, $remember)) {
 
-			request()->session()->regenerate();
+			$request->session()->regenerate();
 
 			$user = Auth::user();
-
-			Auth::login($user, $remember);
 
 			if (!$user instanceof User) {
 				throw new WebiException('Invalid credentials.');

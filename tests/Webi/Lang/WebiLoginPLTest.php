@@ -28,7 +28,10 @@ class WebiLoginPLTest extends TestCase
 		$res = $this->getJson('/web/api/login');
 
 		$res->assertStatus(400)->assertJson([
-			'message' => 'Niepoprawny adres url lub metoda http.'
+			'alert' => [
+				'message' => 'Niepoprawny adres url lub metoda http.',
+				'type' => 'error',
+			],
 		]);
 	}
 
@@ -45,7 +48,10 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Pole adres email jest wymagane.'
+			'alert' => [
+				'message' => 'Pole adres email jest wymagane.',
+				'type' => 'danger',
+			],
 		]);
 
 		$res = $this->postJson('/web/api/login', [
@@ -54,7 +60,10 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Pole adres email nie jest poprawnym adresem e-mail.'
+			'alert' => [
+				'message' => 'Pole adres email nie jest poprawnym adresem e-mail.',
+				'type' => 'danger',
+			],
 		]);
 
 		$res = $this->postJson('/web/api/login', [
@@ -63,7 +72,10 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Pole hasło jest wymagane.'
+			'alert' => [
+				'message' => 'Pole hasło jest wymagane.',
+				'type' => 'danger',
+			],
 		]);
 
 		$res = $this->postJson('/web/api/login', [
@@ -72,7 +84,10 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.'
+			'alert' => [
+				'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.',
+				'type' => 'danger',
+			],
 		]);
 	}
 
@@ -98,10 +113,13 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Zalogowany.'
+			'alert' => [
+				'message' => 'Zalogowany.',
+				'type' => 'success',
+			],
 		]);
 
-		$this->assertNotNull($res['message']);
+		$this->assertNotNull($res['alert']);
 	}
 
 	/** @test */
@@ -118,16 +136,22 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Zalogowany.'
+			'alert' => [
+				'message' => 'Zalogowany.',
+				'type' => 'success',
+			],
 		]);
 
-		// $token = User::where('email', $user->email)->first()->remember_token;
+		$token = User::where('email', $user->email)->first()->remember_token;
 
-		// $res = $this->withCookie('_remeber_token', $token)->get('/web/api/logged');
+		$res = $this->withCookie('webi_token', $token)->get('/web/api/logged');
 
-		// $res->assertStatus(200)->assertJson([
-		// 	'message' => 'Uwierzytelniono z zapamietaj mnie.'
-		// ]);
+		$res->assertStatus(200)->assertJson([
+			'alert' => [
+				'message' => 'Zalogowany.',
+				'type' => 'success',
+			],
+		]);
 	}
 
 	/** @test */
@@ -145,7 +169,10 @@ class WebiLoginPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Zalogowany.'
+			'alert' => [
+				'message' => 'Zalogowany.',
+				'type' => 'success',
+			],
 		]);
 
 		// Event listeners

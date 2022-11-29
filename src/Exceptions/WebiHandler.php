@@ -96,13 +96,11 @@ class WebiHandler extends ExceptionHandler
 					$message = trans($message);
 				}
 
-				$data['message'] = $message;
-				$data['alert'] = $alert;
-				$data['code'] = $status;
-				$data['data'] = null;
+				$data['alert'] = ['message' => $message, 'type' => $alert,];
+				$data['bag'] = null;
 
 				if (config('app.debug')) {
-					$data['error'] = [
+					$data['debug'] = [
 						'exception' => get_class($e),
 						'file' => $e->getFile(),
 						'line' => $e->getLine(),

@@ -28,28 +28,26 @@ class WebiLoggedTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Authenticated.'
+			'alert' => [
+				'message' => 'Authenticated.',
+				'type' => 'success',
+			]
 		])->assertJsonStructure([
-			'data' => ['user']
-		])->assertJsonPath('data.user.email', $user->email);
+			'bag' => ['user']
+		])->assertJsonPath('bag.user.email', $user->email);
 
-		// ->assertCookie('_remeber_token')
+		$token = 'token12345';
 
-		// $token = User::where('email', $user->email)->first()->remember_token;
-
-		// $this->assertNotEmpty($token);
-
-		// $res = $this->withCookie('_remeber_token', $token)->get('/web/api/logged');
-
-		// $res->assertCookie('_remeber_token');
-
-		// $res->headers->getCookies();
+		$res = $this->withCookie('webi_token', $token)->get('/web/api/logged');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Authenticated.'
+			'alert' => [
+				'message' => 'Authenticated.',
+				'type' => 'success',
+			]
 		])->assertJsonStructure([
-			'data' => ['user']
-		])->assertJsonPath('data.user.email', $user->email);
+			'bag' => ['user']
+		])->assertJsonPath('bag.user.email', $user->email)->assertCookie('webi_token');
 	}
 
 	/** @test */
@@ -60,9 +58,12 @@ class WebiLoggedTest extends TestCase
 		$res = $this->getJson('/web/api/logged');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Not authenticated.'
+			'alert' => [
+				'message' => 'Not authenticated.',
+				'type' => 'success',
+			]
 		])->assertJsonStructure([
-			'data' => ['user']
+			'bag' => ['user']
 		])->assertJsonPath('data.user', null);
 	}
 }

@@ -30,7 +30,10 @@ class WebiActivateTest extends TestCase
 
 		// Only numbers
 		$res->assertStatus(200)->assertJson([
-			'message' => 'The id must be at least 1.'
+			'alert' => [
+				'message' => 'The id must be at least 1.',
+				'type' => 'danger'
+			]
 		]);
 
 		// Invalid number id
@@ -38,14 +41,20 @@ class WebiActivateTest extends TestCase
 
 		// Only numbers
 		$res->assertStatus(200)->assertJson([
-			'message' => 'The id must be a number.'
+			'alert' => [
+				'message' => 'The id must be a number.',
+				'type' => 'danger'
+			]
 		]);
 
 		// Invalid user id
 		$res = $this->get('/web/api/activate/123/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Invalid activation code.'
+			'alert' => [
+				'message' => 'Invalid activation code.',
+				'type' => 'danger'
+			]
 		]);
 	}
 
@@ -65,21 +74,30 @@ class WebiActivateTest extends TestCase
 		$res = $this->get('/web/api/activate/' . $user->id . '/er123');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'The code must be at least 6 characters.'
+			'alert' => [
+				'message' => 'The code must be at least 6 characters.',
+				'type' => 'danger'
+			]
 		]);
 
 		// max:30
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . md5('tolongcode'));
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'The code must not be greater than 30 characters.'
+			'alert' => [
+				'message' => 'The code must not be greater than 30 characters.',
+				'type' => 'danger'
+			]
 		]);
 
 		// Code valid but not exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/errorcode123');
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Email has not been activated.'
+			'alert' => [
+				'message' => 'Email has not been activated.',
+				'type' => 'danger'
+			]
 		]);
 	}
 
@@ -97,14 +115,20 @@ class WebiActivateTest extends TestCase
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Email has been confirmed.'
+			'alert' => [
+				'message' => 'Email has been confirmed.',
+				'type' => 'success'
+			]
 		]);
 
 		// Exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'The email address has already been confirmed.'
+			'alert' => [
+				'message' => 'The email address has already been confirmed.',
+				'type' => 'success'
+			]
 		]);
 
 		// Is Activated

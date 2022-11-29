@@ -33,7 +33,10 @@ class WebiPassResetPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Pole adres email jest wymagane.'
+			'alert' => [
+				'message' => 'Pole adres email jest wymagane.',
+				'type' => 'danger',
+			],
 		]);
 
 		$res = $this->postJson('/web/api/reset', [
@@ -41,7 +44,10 @@ class WebiPassResetPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Pole adres email nie jest poprawnym adresem e-mail.'
+			'alert' => [
+				'message' => 'Pole adres email nie jest poprawnym adresem e-mail.',
+				'type' => 'danger',
+			],
 		]);
 	}
 
@@ -59,7 +65,10 @@ class WebiPassResetPLTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'message' => 'Wysłano hasło na podany adres email.'
+			'alert' => [
+				'message' => 'Wysłano hasło na podany adres email.',
+				'type' => 'success',
+			],
 		]);
 
 		Event::assertDispatched(MessageSent::class, function ($e) use ($user) {
@@ -77,7 +86,10 @@ class WebiPassResetPLTest extends TestCase
 			]);
 
 			$res->assertStatus(200)->assertJson([
-				'message' => 'Zalogowany.'
+				'alert' => [
+					'message' => 'Zalogowany.',
+					'type' => 'success',
+				],
 			]);
 
 			return true;
