@@ -6,9 +6,12 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
 use Webi\Exceptions\WebiException;
+use Webi\Traits\HasStripTags;
 
 class WebiChangePasswordRequest extends FormRequest
 {
+	use HasStripTags;
+	
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
@@ -37,7 +40,7 @@ class WebiChangePasswordRequest extends FormRequest
 	function prepareForValidation()
 	{
 		$this->merge(
-			collect(request()->json()->all())->only(['password_current', 'password', 'password_confirmation'])->toArray()
+			$this->stripTags(collect(request()->json()->all())->only(['password_current', 'password', 'password_confirmation'])->toArray())
 		);
 	}
 }
