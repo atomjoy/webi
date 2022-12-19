@@ -2,7 +2,7 @@
 
 namespace Webi\Traits;
 
-class HasStripTags
+trait HasStripTags
 {
 	function stripTags($arr)
 	{
