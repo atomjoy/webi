@@ -31,8 +31,8 @@ class WebiActivateRequest extends FormRequest
 	function prepareForValidation()
 	{
 		$this->merge([
-			'id' => strip_tags(request()->route('id')),
-			'code' => strip_tags(request()->route('code'))
+			'id' => trim(strip_tags(request()->route('id'))),
+			'code' => trim(strip_tags(request()->route('code')))
 		]);
 	}
 }
