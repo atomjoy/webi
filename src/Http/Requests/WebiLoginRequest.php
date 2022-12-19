@@ -5,9 +5,12 @@ namespace Webi\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Webi\Exceptions\WebiException;
+use Webi\Traits\HasStripTags;
 
 class WebiLoginRequest extends FormRequest
 {
+	use HasStripTags;
+	
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
@@ -37,7 +40,7 @@ class WebiLoginRequest extends FormRequest
 	function prepareForValidation()
 	{
 		$this->merge(
-			collect(request()->json()->all())->only(['email', 'password', 'remember_me'])->toArray()
+			$this->stripTags(collect(request()->json()->all())->only(['email', 'password', 'remember_me'])->toArray())
 		);
 	}
 }
