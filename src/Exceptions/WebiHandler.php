@@ -108,7 +108,7 @@ class WebiHandler extends ExceptionHandler
 					];
 				}
 
-				return response()->json($data, $status, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+				return response()->json($data, $status, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 			}
 		});
 	}
