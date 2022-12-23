@@ -26,7 +26,7 @@ class WebiLocalesTest extends TestCase
 
 		$res = $this->getJson('/web/api/locale/error');
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Nie zmieniono języka.',
 				'type' => 'danger',
@@ -49,7 +49,7 @@ class WebiLocalesTest extends TestCase
 
 		$res = $this->getJson('/web/api/locale/error');
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Locale has not been changed.',
 				'type' => 'danger',

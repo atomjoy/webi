@@ -11,6 +11,7 @@ use Webi\Http\Middleware\WebiChangeLocale;
 use Webi\Http\Middleware\WebiJsonResponse;
 use Webi\Http\Middleware\WebiVerifyCsrfToken;
 use Webi\Providers\WebiEventServiceProvider;
+use Webi\Providers\WebiResponseMacroServiceProvider;
 use Webi\Services\Webi;
 use Webi\Exceptions\WebiHandler;
 
@@ -32,6 +33,7 @@ class WebiServiceProvider extends ServiceProvider
 		});
 
 		$this->app->register(WebiEventServiceProvider::class);
+		$this->app->register(WebiResponseMacroServiceProvider::class);
 	}
 
 	public function boot(Kernel $kernel)

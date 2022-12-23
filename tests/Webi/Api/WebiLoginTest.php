@@ -28,7 +28,7 @@ class WebiLoginTest extends TestCase
 		$res->assertStatus(400)->assertJson([
 			'alert' => [
 				'message' => 'Invalid api route path or request method.',
-				'type' => 'error',
+				'type' => 'danger',
 			]
 		]);
 	}
@@ -43,7 +43,7 @@ class WebiLoginTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The email field is required.',
 				'type' => 'danger',
@@ -55,7 +55,7 @@ class WebiLoginTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The email must be a valid email address.',
 				'type' => 'danger',
@@ -67,7 +67,7 @@ class WebiLoginTest extends TestCase
 			'password' => '',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password field is required.',
 				'type' => 'danger',
@@ -79,7 +79,7 @@ class WebiLoginTest extends TestCase
 			'password' => 'password',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password must be at least 11 characters.',
 				'type' => 'danger',

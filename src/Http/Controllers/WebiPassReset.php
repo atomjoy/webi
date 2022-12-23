@@ -14,7 +14,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiPassReset extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(WebiResetPasswordRequest $request)
 	{
@@ -58,6 +58,6 @@ class WebiPassReset extends Controller
 			throw new WebiException('Unable to send e-mail, please try again later.');
 		}
 
-		return $this->jsonResponse('A new password has been sent to the e-mail address provided.');
+		return response()->success('A new password has been sent to the e-mail address provided.');
 	}
 }

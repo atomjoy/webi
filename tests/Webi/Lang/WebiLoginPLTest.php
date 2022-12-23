@@ -30,7 +30,7 @@ class WebiLoginPLTest extends TestCase
 		$res->assertStatus(400)->assertJson([
 			'alert' => [
 				'message' => 'Niepoprawny adres url lub metoda http.',
-				'type' => 'error',
+				'type' => 'danger',
 			],
 		]);
 	}
@@ -47,7 +47,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole adres email jest wymagane.',
 				'type' => 'danger',
@@ -59,7 +59,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole adres email nie jest poprawnym adresem e-mail.',
 				'type' => 'danger',
@@ -71,7 +71,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => '',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło jest wymagane.',
 				'type' => 'danger',
@@ -83,7 +83,7 @@ class WebiLoginPLTest extends TestCase
 			'password' => 'password',
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.',
 				'type' => 'danger',

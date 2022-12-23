@@ -10,7 +10,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiActivate extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(WebiActivateRequest $request)
 	{
@@ -24,13 +24,13 @@ class WebiActivate extends Controller
 		}
 
 		if (!empty($user->email_verified_at)) {
-			return $this->jsonResponse('The email address has already been confirmed.');
+			return response()->success('The email address has already been confirmed.');
 		}
 
 		if ($user->code == strip_tags($valid['code'])) {
 			$user->update(['email_verified_at' => now()]);
 
-			return $this->jsonResponse('Email has been confirmed.');
+			return response()->success('Email has been confirmed.');
 		}
 
 		throw new WebiException("Email has not been activated.");

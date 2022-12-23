@@ -2,7 +2,7 @@
 
 Laravel web rest api authentication library.
 
-## Install (laravel 9, php 8.1)
+## Install (Laravel 9, Php 8.1)
 
 First set your .env variables (mysql, smtp) and then
 

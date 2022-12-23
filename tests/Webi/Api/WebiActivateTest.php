@@ -29,7 +29,7 @@ class WebiActivateTest extends TestCase
 		$res = $this->get('/web/api/activate/0/' . $user->code);
 
 		// Only numbers
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The id must be at least 1.',
 				'type' => 'danger'
@@ -40,7 +40,7 @@ class WebiActivateTest extends TestCase
 		$res = $this->get('/web/api/activate/error123/' . $user->code);
 
 		// Only numbers
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The id must be a number.',
 				'type' => 'danger'
@@ -50,7 +50,7 @@ class WebiActivateTest extends TestCase
 		// Invalid user id
 		$res = $this->get('/web/api/activate/123/' . $user->code);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Invalid activation code.',
 				'type' => 'danger'
@@ -73,7 +73,7 @@ class WebiActivateTest extends TestCase
 		// min:6
 		$res = $this->get('/web/api/activate/' . $user->id . '/er123');
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The code must be at least 6 characters.',
 				'type' => 'danger'
@@ -83,7 +83,7 @@ class WebiActivateTest extends TestCase
 		// max:30
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . md5('tolongcode'));
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The code must not be greater than 30 characters.',
 				'type' => 'danger'
@@ -93,7 +93,7 @@ class WebiActivateTest extends TestCase
 		// Code valid but not exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/errorcode123');
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Email has not been activated.',
 				'type' => 'danger'

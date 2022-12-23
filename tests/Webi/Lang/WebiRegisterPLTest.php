@@ -85,7 +85,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'Password1234#1',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Potwierdzenie pola hasło nie zgadza się.',
 				'type' => 'danger',
@@ -99,7 +99,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'Password1234',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jeden znak specjalny.',
 				'type' => 'danger',
@@ -113,7 +113,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password1234#',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.',
 				'type' => 'danger',
@@ -127,7 +127,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'Passwordoooo#',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jedną cyfrę.',
 				'type' => 'danger',
@@ -211,7 +211,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Taki adres email już występuje.',
 				'type' => 'danger',
@@ -233,7 +233,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole imię jest wymagane.',
 				'type' => 'danger',
@@ -254,7 +254,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole adres email jest wymagane.',
 				'type' => 'danger',
@@ -275,7 +275,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło jest wymagane.',
 				'type' => 'danger',
@@ -296,7 +296,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => '',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.',
 				'type' => 'danger',
@@ -310,7 +310,7 @@ class WebiRegisterPLTest extends TestCase
 			'password_confirmation' => 'Password1234#1',
 		]);
 
-		$res->assertStatus(200)->assertJsonMissing(['bag' => ['created']])->assertJson([
+		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
 			'alert' => [
 				'message' => 'Potwierdzenie pola hasło nie zgadza się.',
 				'type' => 'danger',

@@ -2,10 +2,11 @@
 
 namespace Webi\Exceptions;
 
+use Error;
+use Exception;
 use Throwable;
 use PDOException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Arr;
 use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -52,63 +53,45 @@ class WebiHandler extends ExceptionHandler
 	 */
 	public function register()
 	{
-		$this->renderable(function (Throwable $e, $request) {
-			// Change "ServerError" Exception when app_debug=false to a json message
-			if (
-				$request->is('web/api/*') ||
-				$request->wantsJson()
-			) {
-				$alert = 'error';
-				$message = $e->getMessage();
+		$this->renderable(function (Error $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors($e->getMessage() ?? 'Unknown Error.', null, 422);
+			}
+		});
 
-				$message = empty($message) ? 'Unknown Exception.' : $message;
-				$status = $this->validCode($e) ? $e->getCode() : 422;
+		$this->renderable(function (PDOException $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors('Database error.', null, 500);
+			}
+		});
 
-				if ($e instanceof QueryException || $e instanceof PDOException) {
-					$status = 500;
-					$alert = 'error';
-					$message = 'Database error.';
-				}
+		$this->renderable(function (NotFoundHttpException $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors('Not Found.', null, 404);
+			}
+		});
 
-				if ($e instanceof WebiException) {
-					$status = 200;
-					$alert = 'danger';
-				}
+		$this->renderable(function (AuthenticationException $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors($e->getMessage(), null, 401);
+			}
+		});
 
-				if ($e instanceof AuthenticationException) {
-					$status = 200;
-					$alert = 'danger';
-				}
+		$this->renderable(function (ValidationException $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors($e->getMessage(), null, 422);
+			}
+		});
 
-				if ($e instanceof ValidationException) {
-					$status = 200;
-					$alert = 'danger';
-				}
+		$this->renderable(function (WebiException $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors($e->getMessage(), null, 422);
+			}
+		});
 
-				if ($e instanceof NotFoundHttpException) {
-					$status = 200;
-					$alert = 'danger';
-					$message = 'Not Found.';
-				}
-
-				if (config('webi.settings.translate_response') == true) {
-					$this->updateLocale($request);
-					$message = trans($message);
-				}
-
-				$data['alert'] = ['message' => $message, 'type' => $alert,];
-				$data['bag'] = null;
-
-				if (config('app.debug')) {
-					$data['debug'] = [
-						'exception' => get_class($e),
-						'file' => $e->getFile(),
-						'line' => $e->getLine(),
-						'trace' => collect($e->getTrace())->map(fn ($trace) => Arr::except($trace, ['args']))->all(),
-					];
-				}
-
-				return response()->json($data, $status, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+		$this->renderable(function (Exception $e, $request) {
+			if ($request->is('web/api/*') || $request->wantsJson()) {
+				return response()->errors($e->getMessage() ?? 'Unknown Exception.', null, $this->validCode($e));
 			}
 		});
 	}
@@ -118,12 +101,12 @@ class WebiHandler extends ExceptionHandler
 	 *
 	 * @return void
 	 */
-	public function updateLocale($request)
+	public function updateLocale()
 	{
 		$lang =  session('locale', config('app.locale'));
 		app()->setLocale($lang);
-		if ($request->has('locale')) {
-			app()->setLocale($request->query('locale'));
+		if (request()->has('locale')) {
+			app()->setLocale(request()->query('locale'));
 		}
 	}
 
@@ -134,6 +117,6 @@ class WebiHandler extends ExceptionHandler
 	 */
 	public function validCode($e)
 	{
-		return ($e->getCode() >= 100 && $e->getCode() <= 599) ? true : false;
+		return ($e->getCode() >= 100 && $e->getCode() <= 599) ? $e->getCode() : 422;
 	}
 }

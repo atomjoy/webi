@@ -8,7 +8,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiCsrf extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(Request $request)
 	{
@@ -16,7 +16,7 @@ class WebiCsrf extends Controller
 
 		session(['webi_cnt' => session('webi_cnt') + 1]);
 
-		return $this->jsonResponse('Csrf token created.', [
+		return response()->success('Csrf token created.', [
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
 		]);

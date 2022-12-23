@@ -12,7 +12,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogged extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(Request $request)
 	{
@@ -21,15 +21,15 @@ class WebiLogged extends Controller
 		if (Auth::check()) {
 			WebiUserLogged::dispatch(Auth::user(), $request->ip());
 
-			return $this->jsonResponse('Authenticated.', [
+			return response()->success('Authenticated.', [
 				'locale' => app()->getLocale(),
 				'user' => Auth::user()
 			]);
 		} else {
-			return $this->jsonResponse('Not authenticated.', [
+			return response()->success('Not authenticated.', [
 				'locale' => app()->getLocale(),
 				'user' => null
-			]);
+			], 422, 'danger');
 		}
 	}
 

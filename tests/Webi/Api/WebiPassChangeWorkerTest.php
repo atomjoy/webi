@@ -41,7 +41,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Invalid current password.',
 				'type' => 'danger',
@@ -54,7 +54,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password123'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password must be at least 11 characters.',
 				'type' => 'danger',
@@ -67,7 +67,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password must contain at least one uppercase and one lowercase letter.',
 				'type' => 'danger',
@@ -80,7 +80,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password must contain at least one symbol.',
 				'type' => 'danger',
@@ -93,7 +93,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Passwordoooo#'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password must contain at least one number.',
 				'type' => 'danger',
@@ -106,7 +106,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#1'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'The password confirmation does not match.',
 				'type' => 'danger',
@@ -154,7 +154,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password1234'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(401)->assertJson([
 			'alert' => [
 				'message' => 'Unauthenticated.',
 				'type' => 'danger',

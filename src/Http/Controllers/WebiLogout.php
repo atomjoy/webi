@@ -11,7 +11,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogout extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(Request $request)
 	{
@@ -29,6 +29,6 @@ class WebiLogout extends Controller
 			throw new WebiException('Logged out error.', 422);
 		}
 
-		return $this->jsonResponse('Logged out.');
+		return response()->success('Logged out.');
 	}
 }

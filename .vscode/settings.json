@@ -1,28 +1,35 @@
 {
+	// Disable git
+	"git.enabled": true,
+
 	// Php
 	"php.validate.executablePath": "C:/xampp/php/php.exe",
 
 	// Window zoom/scale
-	"window.zoomLevel": 2,
+	"window.zoomLevel": 1,
 
 	// Workbench style
 	"workbench.tree.indent": 20,
 	"workbench.tree.renderIndentGuides": "always",
 
-	// Icons
+	// Icons, theme
 	"workbench.iconTheme": "material-icon-theme",
+	"workbench.colorTheme": "Bearded Theme Oceanic",
+	"workbench.startupEditor": "none",
 
 	// File
 	"files.trimTrailingWhitespace": true,
-	"editor.fontLigatures": true,
 
 	// Style
-	"editor.wordWrap": "off",
-	"editor.fontFamily": "'Fira Code',Consolas,monospace",
 	"editor.fontSize": 16,
-	"editor.tabSize": 2,
+	"editor.letterSpacing": 0.3,
+	"editor.fontFamily": "'Fira Code',Consolas,monospace",
 	"editor.insertSpaces": true, // Use spaces no tabs
 	"editor.detectIndentation": false,
+	"editor.fontLigatures": true, // Enables font ligatures
+	"editor.wordWrap": "off",
+	"editor.lineHeight": 25, // Use 0 to compute the lineHeight from the fontSize.
+	"editor.tabSize": 2,
 
 	// Formatter
 	"editor.formatOnSave": true,
@@ -86,7 +93,11 @@
 	"intelephense.diagnostics.undefinedTypes": false,
 	"intelephense.diagnostics.undefinedMethods": false,
 	"intelephense.environment.phpVersion": "8.1.6",
-	"workbench.startupEditor": "none",
-	"workbench.colorTheme": "Bearded Theme Oceanic",
-	"explorer.confirmDragAndDrop": false
+	"explorer.confirmDragAndDrop": false,
+
+	"files.associations": {
+		"*.env": "properties",
+		"*.env.*": "properties"
+	}
+	// "typescript.tsserver.log": "normal"
 }

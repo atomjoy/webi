@@ -12,7 +12,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogin extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(WebiLoginRequest $request)
 	{
@@ -38,7 +38,7 @@ class WebiLogin extends Controller
 
 			WebiUserLogged::dispatch($user, request()->ip());
 
-			return $this->jsonResponse('Authenticated.', [
+			return response()->success('Authenticated.', [
 				'user' => $user,
 			]);
 		} else {

@@ -15,7 +15,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiRegister extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(WebiRegisterRequest $request)
 	{
@@ -59,7 +59,7 @@ class WebiRegister extends Controller
 		// Event
 		WebiUserCreated::dispatch($user, request()->ip());
 
-		return $this->jsonResponse('Account has been created, please confirm your email address.', [
+		return response()->success('Account has been created, please confirm your email address.', [
 			'created' => true
 		], 201);
 	}

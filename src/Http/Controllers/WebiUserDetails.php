@@ -8,11 +8,11 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiUserDetails extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(Request $request)
 	{
-		return $this->jsonResponse('User details.', [
+		return response()->success('User details.', [
 			'user' => request()->user(),
 			'ip' => request()->ip()
 		]);

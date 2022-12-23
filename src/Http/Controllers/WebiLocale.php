@@ -9,7 +9,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLocale extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index($locale)
 	{
@@ -18,7 +18,7 @@ class WebiLocale extends Controller
 
 			session(['locale' => app()->getLocale()]);
 
-			return $this->jsonResponse('Locale has been changed.', [
+			return response()->success('Locale has been changed.', [
 				'locale' => app()->getLocale(),
 			]);
 		}

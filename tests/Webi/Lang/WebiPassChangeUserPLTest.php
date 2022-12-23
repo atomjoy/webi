@@ -42,7 +42,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password1234#'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.',
 				'type' => 'danger',
@@ -55,7 +55,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jeden znak specjalny.',
 				'type' => 'danger',
@@ -68,7 +68,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Passwordoooo#'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi zawierać jedną cyfrę.',
 				'type' => 'danger',
@@ -81,7 +81,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Podaj aktualne hasło.',
 				'type' => 'danger',
@@ -94,7 +94,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password123'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.',
 				'type' => 'danger',
@@ -107,7 +107,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'Password1234#1'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(422)->assertJson([
 			'alert' => [
 				'message' => 'Potwierdzenie pola hasło nie zgadza się.',
 				'type' => 'danger',
@@ -157,7 +157,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 			'password_confirmation' => 'password1234'
 		]);
 
-		$res->assertStatus(200)->assertJson([
+		$res->assertStatus(401)->assertJson([
 			'alert' => [
 				'message' => 'Nie zalogowany.',
 				'type' => 'danger',

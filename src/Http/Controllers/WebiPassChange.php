@@ -12,7 +12,7 @@ use Webi\Traits\Http\HasJsonResponse;
 
 class WebiPassChange extends Controller
 {
-	use HasJsonResponse;
+	// use HasJsonResponse;
 
 	function index(WebiChangePasswordRequest $request)
 	{
@@ -27,7 +27,7 @@ class WebiPassChange extends Controller
 				'ip' => $request->ip()
 			]);
 
-			return $this->jsonResponse('Password has been updated.');
+			return response()->success('Password has been updated.');
 		} else {
 			throw new WebiException('Invalid current password.');
 		}
