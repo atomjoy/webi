@@ -15,7 +15,7 @@ class WebiResponseMacroServiceProvider extends ServiceProvider
 	public function boot()
 	{
 		Response::macro('errors', function ($message, $data = null, $code = 422, $alert_type = 'danger', $headers = []) {
-			if (config('webi.settings.translate_response') == true) {
+			if (config('webi.settings.translate_response', false) == true) {
 				$message = trans($message);
 			}
 
