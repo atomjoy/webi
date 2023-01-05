@@ -17,7 +17,7 @@ class Webi
 		request()->session()->regenerateToken();
 		session(['webi_cnt' => session('webi_cnt') + 1]);
 
-		return $this->jsonResponse(trans('Csrf token created.'), [
+		return $this->jsonResponse('Csrf token created.', [
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
 			'session_locale' => session('locale'),
