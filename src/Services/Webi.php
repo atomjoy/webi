@@ -17,7 +17,8 @@ class Webi
 		request()->session()->regenerateToken();
 		session(['webi_cnt' => session('webi_cnt') + 1]);
 
-		return $this->jsonResponse('Csrf token created.', [
+		return $this->jsonResponse([
+			'message' => 'Csrf token created.',
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
 			'session_locale' => session('locale'),
@@ -30,7 +31,8 @@ class Webi
 			app()->setLocale($locale);
 			session(['locale' => app()->getLocale()]);
 
-			return $this->jsonResponse('Locale has been changed.', [
+			return $this->jsonResponse([
+				'message' => 'Locale has been changed.',
 				'locale' => app()->getLocale(),
 			], 200);
 		}

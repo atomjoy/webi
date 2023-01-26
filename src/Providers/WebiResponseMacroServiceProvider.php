@@ -15,12 +15,12 @@ class WebiResponseMacroServiceProvider extends ServiceProvider
 	 */
 	public function boot()
 	{
-		Response::macro('errors', function ($message, $data = null, $code = 422, $alert_type = 'danger', $headers = []) {
-			return (new Webi())->jsonResponse($message, $data, $code, $alert_type, $headers);
+		Response::macro('errors', function ($data, $code = 422, $headers = []) {
+			return (new Webi())->jsonResponse($data, $code, $headers);
 		});
 
-		Response::macro('success', function ($message, $data = null, $code = 200, $alert_type = 'success', $headers = []) {
-			return (new Webi())->jsonResponse($message, $data, $code, $alert_type, $headers);
+		Response::macro('success', function ($data, $code = 200, $headers = []) {
+			return (new Webi())->jsonResponse($data, $code, $headers);
 		});
 	}
 }

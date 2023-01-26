@@ -32,10 +32,7 @@ class WebiActivatePLTest extends TestCase
 
 		// Only numbers
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole id musi być nie mniejsze od 1.',
-				'type' => 'danger',
-			]
+			'message' => 'Pole id musi być nie mniejsze od 1.'
 		]);
 
 		// Invalid number id
@@ -43,20 +40,14 @@ class WebiActivatePLTest extends TestCase
 
 		// Only numbers
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole id musi być liczbą.',
-				'type' => 'danger',
-			]
+			'message' => 'Pole id musi być liczbą.'
 		]);
 
 		// Invalid user id
 		$res = $this->get('/web/api/activate/123/' . $user->code);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Niepoprawny kod aktywacyjny.',
-				'type' => 'danger',
-			]
+			'message' => 'Niepoprawny kod aktywacyjny.'
 		]);
 	}
 
@@ -78,30 +69,21 @@ class WebiActivatePLTest extends TestCase
 		$res = $this->get('/web/api/activate/' . $user->id . '/er123');
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole code musi mieć przynajmniej 6 znaków.',
-				'type' => 'danger',
-			]
+			'message' => 'Pole code musi mieć przynajmniej 6 znaków.'
 		]);
 
 		// max:30
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . md5('tolongcode'));
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole code nie może być dłuższe niż 30 znaków.',
-				'type' => 'danger',
-			]
+			'message' => 'Pole code nie może być dłuższe niż 30 znaków.'
 		]);
 
 		// Code valid but not exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/errorcode123');
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Nie można potwierdzić adresu email.',
-				'type' => 'danger',
-			]
+			'message' => 'Nie można potwierdzić adresu email.'
 		]);
 	}
 
@@ -121,20 +103,14 @@ class WebiActivatePLTest extends TestCase
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Adres email został potwierdzony.',
-				'type' => 'success',
-			]
+			'message' => 'Adres email został potwierdzony.'
 		]);
 
 		// Exists
 		$res = $this->get('/web/api/activate/' . $user->id . '/' . $user->code);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Adres email jest już potwierdzony.',
-				'type' => 'success',
-			]
+			'message' => 'Adres email jest już potwierdzony.'
 		]);
 
 		// Is Activated

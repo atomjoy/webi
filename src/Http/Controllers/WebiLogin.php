@@ -38,7 +38,8 @@ class WebiLogin extends Controller
 
 			WebiUserLogged::dispatch($user, request()->ip());
 
-			return response()->success('Authenticated.', [
+			return response()->success([
+				'message' => trans('Authenticated.'),
 				'user' => $user,
 			]);
 		} else {

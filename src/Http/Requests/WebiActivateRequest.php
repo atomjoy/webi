@@ -5,9 +5,12 @@ namespace Webi\Http\Requests;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Webi\Exceptions\WebiException;
+use Webi\Traits\HasStripTags;
 
 class WebiActivateRequest extends FormRequest
 {
+	use HasStripTags;
+
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
@@ -30,9 +33,13 @@ class WebiActivateRequest extends FormRequest
 
 	function prepareForValidation()
 	{
-		$this->merge([
-			'id' => trim(strip_tags(request()->route('id'))),
-			'code' => trim(strip_tags(request()->route('code')))
-		]);
+		$arr = [
+			'id' => request()->route('id'),
+			'code' => request()->route('code')
+		];
+
+		$this->merge(
+			$this->stripTags($arr)
+		);
 	}
 }

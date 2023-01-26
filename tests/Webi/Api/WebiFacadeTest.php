@@ -20,7 +20,7 @@ class WebiFacadeTest extends TestCase
 		parent::setUp();
 
 		Route::get('/web/api/csrf/facade', function () {
-			// Vscode show error but it is facade !
+			// Vscode error but it is facade !
 			// return Webi::csrf();
 
 			// With namespace
@@ -34,10 +34,7 @@ class WebiFacadeTest extends TestCase
 		$res = $this->get('/web/api/csrf/facade');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Csrf token created.',
-				'type' => 'success'
-			],
+			'message' => 'Csrf token created.',
 		]);
 	}
 }

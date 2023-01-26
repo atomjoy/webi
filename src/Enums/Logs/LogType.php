@@ -14,4 +14,14 @@ enum LogType: string
 	{
 		return array_column(self::cases(), 'name');
 	}
+
+	/**
+	 * Convert string to LogType
+	 *
+	 * @param string $value
+	 */
+	public static function fromString(string $value): LogType
+	{
+		return self::from($value);
+	}
 }

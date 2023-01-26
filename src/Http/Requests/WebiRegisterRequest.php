@@ -12,7 +12,7 @@ use Webi\Traits\HasStripTags;
 class WebiRegisterRequest extends FormRequest
 {
 	use HasStripTags;
-	
+
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
@@ -37,6 +37,7 @@ class WebiRegisterRequest extends FormRequest
 				'required',
 				Password::min(11)->letters()->mixedCase()->numbers()->symbols(),
 				'confirmed',
+				'max:50',
 			],
 			'password_confirmation' => 'required'
 		];

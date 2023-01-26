@@ -16,7 +16,8 @@ class WebiCsrf extends Controller
 
 		session(['webi_cnt' => session('webi_cnt') + 1]);
 
-		return response()->success('Csrf token created.', [
+		return response()->success([
+			'message' => trans('Csrf token created.'),
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
 		]);

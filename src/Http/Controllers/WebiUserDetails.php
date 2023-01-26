@@ -12,7 +12,8 @@ class WebiUserDetails extends Controller
 
 	function index(Request $request)
 	{
-		return response()->success('User details.', [
+		return response()->success([
+			'message' => trans('User details.'),
 			'user' => request()->user(),
 			'ip' => request()->ip()
 		]);

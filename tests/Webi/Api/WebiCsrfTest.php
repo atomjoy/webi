@@ -21,11 +21,8 @@ class WebiCsrfTest extends TestCase
 		$res = $this->get('/web/api/csrf');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Csrf token created.',
-				'type' => 'success'
-			],
-			'bag' => ['counter' => 1],
+			'message' => 'Csrf token created.',
+			'counter' => 1
 		]);
 
 		$token = [
@@ -36,11 +33,8 @@ class WebiCsrfTest extends TestCase
 		$res = $this->withCookies($token)->get('/web/api/csrf');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Csrf token created.',
-				'type' => 'success'
-			],
-			'bag' => ['counter' => 2],
+			'message' => 'Csrf token created.',
+			'counter' => 2
 		]);
 
 		// $cookies = $res->headers->getCookies();

@@ -7,7 +7,7 @@ trait HasStripTags
 	function stripTags($arr)
 	{
 		array_walk_recursive($arr, function (&$v) {
-			$v = trim(strip_tags($v));
+			$v = html_entity_decode(trim(strip_tags($v)));
 		});
 
 		return $arr;
@@ -19,6 +19,13 @@ trait HasStripTags
 			$v = htmlentities($v, ENT_QUOTES, "UTF-8");
 		});
 
+		return $arr;
+	}
+
+	function stripAll($arr)
+	{
+		$arr = $this->stripTags($arr);
+		$arr = $this->htmlentities($arr);
 		return $arr;
 	}
 }

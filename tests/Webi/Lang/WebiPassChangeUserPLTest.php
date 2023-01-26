@@ -26,9 +26,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 	{
 		$res = $this->get('web/api/test/user');
 
-		$res->assertStatus(200)->assertJsonStructure([
-			'bag' => ['ip', 'user']
-		]);
+		$res->assertStatus(200)->assertJsonStructure(['ip', 'user']);
 	}
 
 	/** @test */
@@ -43,10 +41,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.',
-				'type' => 'danger',
-			],
+			'message' => 'Pole hasło musi zawierać jedną dużą i małą literę.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -56,10 +51,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole hasło musi zawierać jeden znak specjalny.',
-				'type' => 'danger',
-			],
+			'message' => 'Pole hasło musi zawierać jeden znak specjalny.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -69,10 +61,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole hasło musi zawierać jedną cyfrę.',
-				'type' => 'danger',
-			],
+			'message' => 'Pole hasło musi zawierać jedną cyfrę.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -82,10 +71,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Podaj aktualne hasło.',
-				'type' => 'danger',
-			],
+			'message' => 'Podaj aktualne hasło.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -95,10 +81,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.',
-				'type' => 'danger',
-			],
+			'message' => 'Pole hasło musi mieć przynajmniej 11 znaków.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -108,10 +91,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Potwierdzenie pola hasło nie zgadza się.',
-				'type' => 'danger',
-			],
+			'message' => 'Potwierdzenie pola hasło nie zgadza się.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -121,10 +101,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Zaktualizowano hasło.',
-				'type' => 'success',
-			],
+			'message' => 'Zaktualizowano hasło.'
 		]);
 
 		Auth::logout();
@@ -135,13 +112,10 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Zalogowany.',
-				'type' => 'success',
-			],
+			'message' => 'Zalogowany.'
 		]);
 
-		$this->assertNotNull($res['alert']);
+		$this->assertNotNull($res['user']);
 	}
 
 	/** @test */
@@ -158,10 +132,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(401)->assertJson([
-			'alert' => [
-				'message' => 'Nie zalogowany.',
-				'type' => 'danger',
-			],
+			'message' => 'Nie zalogowany.'
 		]);
 	}
 
@@ -173,10 +144,7 @@ class WebiPassChangehUserPLTest extends AuthenticatedTestCase
 		$res = $this->getJson('/web/api/logout');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Wylogowano.',
-				'type' => 'success',
-			],
+			'message' => 'Wylogowano.'
 		]);
 	}
 }

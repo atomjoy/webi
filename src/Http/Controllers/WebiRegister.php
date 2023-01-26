@@ -59,7 +59,8 @@ class WebiRegister extends Controller
 		// Event
 		WebiUserCreated::dispatch($user, request()->ip());
 
-		return response()->success('Account has been created, please confirm your email address.', [
+		return response()->success([
+			'message' => trans('Account has been created, please confirm your email address.'),
 			'created' => true
 		], 201);
 	}

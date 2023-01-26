@@ -26,10 +26,7 @@ class WebiLoginTest extends TestCase
 		$res = $this->getJson('/web/api/login');
 
 		$res->assertStatus(400)->assertJson([
-			'alert' => [
-				'message' => 'Invalid api route path or request method.',
-				'type' => 'danger',
-			]
+			'message' => 'Invalid api route path or request method.'
 		]);
 	}
 
@@ -44,10 +41,7 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The email field is required.',
-				'type' => 'danger',
-			]
+			'message' => 'The email field is required.'
 		]);
 
 		$res = $this->postJson('/web/api/login', [
@@ -56,10 +50,7 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The email must be a valid email address.',
-				'type' => 'danger',
-			]
+			'message' => 'The email must be a valid email address.'
 		]);
 
 		$res = $this->postJson('/web/api/login', [
@@ -68,10 +59,7 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password field is required.',
-				'type' => 'danger',
-			]
+			'message' => 'The password field is required.'
 		]);
 
 		$res = $this->postJson('/web/api/login', [
@@ -80,10 +68,7 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password must be at least 11 characters.',
-				'type' => 'danger',
-			]
+			'message' => 'The password must be at least 11 characters.'
 		]);
 	}
 
@@ -107,15 +92,12 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.'
 		])->assertJsonStructure([
-			'bag' => ['user']
-		])->assertJsonPath('bag.user.email', $user->email);
+			'user'
+		])->assertJsonPath('user.email', $user->email);
 
-		$this->assertNotNull($res['alert']);
+		$this->assertNotNull($res['user']);
 	}
 
 	/** @test */
@@ -130,10 +112,7 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.'
 		]);
 
 		$token = User::where('email', $user->email)->first()->remember_token;
@@ -141,10 +120,7 @@ class WebiLoginTest extends TestCase
 		$res = $this->withCookie('webi_token', $token)->get('/web/api/logged');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.'
 		])->assertCookie('webi_token');
 	}
 
@@ -161,13 +137,10 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.'
 		])->assertJsonStructure([
-			'bag' => ['user']
-		])->assertJsonPath('bag.user.email', $user->email);;
+			'user'
+		])->assertJsonPath('user.email', $user->email);;
 
 		// Event listeners
 		Event::assertListening(

@@ -142,7 +142,7 @@ composer update --no-dev
 
 # Web API Requests
 
-Send requests as json. You get the answer as json: **{"alert", bag: []}**. For more go to: **src/Http/Requests** and **src\Http\Controllers** directories or to routes file **routes/web.php**.
+Send requests as json. Response as json: **{'message', "user"}**. For more go to: **src/Http/Requests** and **src\Http\Controllers** directories or to routes file **routes/web.php**.
 
 ### /web/api/login
 
@@ -150,7 +150,7 @@ Method: **POST**
 
 ```sh
 Params: 'email', 'password', 'remember_me'
-Data: {"alert", bag: ['user']}
+Data: {'message', "user"}
 ```
 
 ### /web/api/register
@@ -159,7 +159,7 @@ Method: **POST**
 
 ```sh
 Params: 'name', 'email', 'password', 'password_confirmation'
-Data: {"alert", bag: ['created']}
+Data: {'message', 'created'}
 ```
 
 ### /web/api/reset
@@ -168,7 +168,7 @@ Method: **POST**
 
 ```sh
 Params: 'email'
-Data: {"alert", bag: null}
+Data: {'message'}
 ```
 
 ### /web/api/activate/{id}/{code}
@@ -177,7 +177,7 @@ Method: **GET**
 
 ```sh
 Params: 'id', 'code'
-Data: {"alert", bag: null}
+Data: {'message'}
 ```
 
 ### /web/api/logout
@@ -186,7 +186,7 @@ Method: **GET**
 
 ```sh
 Params: without params
-Data: {"alert", bag: null}
+Data: {'message'}
 ```
 
 ### /web/api/locale/{locale}
@@ -195,7 +195,7 @@ Method: **GET**
 
 ```sh
 Params: 'locale'
-Data: {"alert", bag: ['locale']}
+Data: {'message', 'locale'}
 ```
 
 ### /web/api/csrf
@@ -204,7 +204,7 @@ Method: **GET**
 
 ```sh
 Params: without params
-Data: {"alert", bag: ['counter', 'locale']}
+Data: {'message', 'counter', 'locale'}
 ```
 
 ### /web/api/logged
@@ -213,7 +213,7 @@ Method: **GET**
 
 ```sh
 Params: without params
-Data: {"alert", bag: ['locale', 'user']}
+Data: {'message', 'locale', "user"}
 ```
 
 ### /web/api/change-password
@@ -222,7 +222,7 @@ Method: **POST** Auth: **true**
 
 ```sh
 Params: 'password_current', 'password', 'password_confirmation'
-Data: {"alert", bag: null}
+Data: {'message'}
 ```
 
 ### /web/api/test/user, /web/api/test/worker, /web/api/test/admin
@@ -231,5 +231,5 @@ Method: **GET** Auth: **true**
 
 ```sh
 Params: without params
-Data: {"alert", bag: ['user', 'ip']}
+Data: {'message', "user", 'ip'}
 ```

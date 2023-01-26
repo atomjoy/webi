@@ -28,26 +28,20 @@ class WebiLoggedTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.',
 		])->assertJsonStructure([
-			'bag' => ['user']
-		])->assertJsonPath('bag.user.email', $user->email);
+			'message', 'user'
+		])->assertJsonPath('user.email', $user->email);
 
 		$token = 'token12345';
 
 		$res = $this->withCookie('webi_token', $token)->get('/web/api/logged');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.'
 		])->assertJsonStructure([
-			'bag' => ['user']
-		])->assertJsonPath('bag.user.email', $user->email)->assertCookie('webi_token');
+			'message', 'user'
+		])->assertJsonPath('user.email', $user->email)->assertCookie('webi_token');
 	}
 
 	/** @test */
@@ -58,12 +52,7 @@ class WebiLoggedTest extends TestCase
 		$res = $this->getJson('/web/api/logged');
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Not authenticated.',
-				'type' => 'danger',
-			]
-		])->assertJsonStructure([
-			'bag' => ['user']
-		])->assertJsonPath('data.user', null);
+			'message' => 'Not authenticated.'
+		])->assertJsonStructure(['user'])->assertJsonPath('user', null);
 	}
 }

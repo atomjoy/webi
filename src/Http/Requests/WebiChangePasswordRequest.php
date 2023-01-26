@@ -11,7 +11,7 @@ use Webi\Traits\HasStripTags;
 class WebiChangePasswordRequest extends FormRequest
 {
 	use HasStripTags;
-	
+
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
@@ -27,6 +27,7 @@ class WebiChangePasswordRequest extends FormRequest
 				'required',
 				Password::min(11)->letters()->mixedCase()->numbers()->symbols(),
 				'confirmed',
+				'max:50',
 			],
 			'password_confirmation' => 'required',
 		];

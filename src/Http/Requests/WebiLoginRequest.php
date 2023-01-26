@@ -10,7 +10,7 @@ use Webi\Traits\HasStripTags;
 class WebiLoginRequest extends FormRequest
 {
 	use HasStripTags;
-	
+
 	protected $stopOnFirstFailure = true;
 
 	public function authorize()
@@ -27,7 +27,7 @@ class WebiLoginRequest extends FormRequest
 
 		return [
 			'email' => ['required', $email, 'max:191'],
-			'password' => 'required|min:11',
+			'password' => 'required|min:11|max:50',
 			'remember_me' => 'sometimes|boolean'
 		];
 	}

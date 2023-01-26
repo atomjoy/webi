@@ -27,8 +27,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		$res = $this->get('web/api/test/worker');
 
 		$res->assertStatus(200)->assertJsonStructure([
-			'alert' => ['message', 'type'],
-			'bag' => ['ip', 'user']
+			'message', 'user'
 		]);
 	}
 
@@ -42,10 +41,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'Invalid current password.',
-				'type' => 'danger',
-			]
+			'message' => 'Invalid current password.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -55,10 +51,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password must be at least 11 characters.',
-				'type' => 'danger',
-			]
+			'message' => 'The password must be at least 11 characters.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -68,10 +61,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one uppercase and one lowercase letter.',
-				'type' => 'danger',
-			]
+			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -81,10 +71,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one symbol.',
-				'type' => 'danger',
-			]
+			'message' => 'The password must contain at least one symbol.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -94,10 +81,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one number.',
-				'type' => 'danger',
-			]
+			'message' => 'The password must contain at least one number.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -107,10 +91,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The password confirmation does not match.',
-				'type' => 'danger',
-			]
+			'message' => 'The password confirmation does not match.'
 		]);
 
 		$res = $this->postJson('/web/api/change-password', [
@@ -120,10 +101,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Password has been updated.',
-				'type' => 'success',
-			]
+			'message' => 'Password has been updated.'
 		]);
 
 		Auth::logout();
@@ -134,13 +112,12 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Authenticated.',
-				'type' => 'success',
-			]
+			'message' => 'Authenticated.'
+		])->assertJsonStructure([
+			'user'
 		]);
 
-		$this->assertNotNull($res['alert']);
+		$this->assertNotNull($res['user']);
 	}
 
 	/** @test */
@@ -155,10 +132,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		]);
 
 		$res->assertStatus(401)->assertJson([
-			'alert' => [
-				'message' => 'Unauthenticated.',
-				'type' => 'danger',
-			]
+			'message' => 'Unauthenticated.'
 		]);
 	}
 
@@ -168,10 +142,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 		$res = $this->getJson('/web/api/logout');
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'Logged out.',
-				'type' => 'success',
-			]
+			'message' => 'Logged out.'
 		]);
 	}
 }

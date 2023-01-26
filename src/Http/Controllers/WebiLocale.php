@@ -18,7 +18,8 @@ class WebiLocale extends Controller
 
 			session(['locale' => app()->getLocale()]);
 
-			return response()->success('Locale has been changed.', [
+			return response()->success([
+				'message' => trans('Locale has been changed.'),
 				'locale' => app()->getLocale(),
 			]);
 		}

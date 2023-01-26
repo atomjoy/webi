@@ -51,29 +51,29 @@ class WebiAuthRolesMiddlewareTest extends AuthenticatedTestCase
 	/** @test */
 	function auth_roles_only_logged_users()
 	{
-		$res = $this->get('web/api/test/admin');
+		$res = $this->getJson('web/api/test/admin');
 
 		$res->assertStatus(200);
 
-		$res = $this->get('web/api/test/worker');
+		$res = $this->getJson('web/api/test/worker');
 
 		$res->assertStatus(200);
 
-		$res = $this->get('web/api/test/user');
+		$res = $this->getJson('web/api/test/user');
 
 		$res->assertStatus(200);
 
 		Auth::logout();
 
-		$res = $this->get('web/api/test/admin');
+		$res = $this->getJson('web/api/test/admin');
 
 		$res->assertStatus(401);
 
-		$res = $this->get('web/api/test/worker');
+		$res = $this->getJson('web/api/test/worker');
 
 		$res->assertStatus(401);
 
-		$res = $this->get('web/api/test/user');
+		$res = $this->getJson('web/api/test/user');
 
 		$res->assertStatus(401);
 	}

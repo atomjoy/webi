@@ -55,43 +55,43 @@ class WebiHandler extends ExceptionHandler
 	{
 		$this->renderable(function (Error $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors($e->getMessage() ?? 'Unknown Error.', null, 422);
+				return response()->errors($e->getMessage() ?? 'Unknown Error.', 422);
 			}
 		});
 
 		$this->renderable(function (PDOException $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors('Database error.', null, 500);
+				return response()->errors('Database error.', 500);
 			}
 		});
 
 		$this->renderable(function (NotFoundHttpException $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors('Not Found.', null, 404);
+				return response()->errors('Not Found.', 404);
 			}
 		});
 
 		$this->renderable(function (AuthenticationException $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors($e->getMessage(), null, 401);
+				return response()->errors($e->getMessage(), 401);
 			}
 		});
 
 		$this->renderable(function (ValidationException $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors($e->getMessage(), null, 422);
+				return response()->errors($e->getMessage(), 422);
 			}
 		});
 
 		$this->renderable(function (WebiException $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors($e->getMessage(), null, 422);
+				return response()->errors($e->getMessage(), 422);
 			}
 		});
 
 		$this->renderable(function (Exception $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors($e->getMessage() ?? 'Unknown Exception.', null, $this->validCode($e));
+				return response()->errors($e->getMessage() ?? 'Unknown Exception.', $this->validCode($e));
 			}
 		});
 	}

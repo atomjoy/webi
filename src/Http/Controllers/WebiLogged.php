@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 use Webi\Events\WebiUserLogged;
-use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogged extends Controller
 {
@@ -21,15 +20,17 @@ class WebiLogged extends Controller
 		if (Auth::check()) {
 			WebiUserLogged::dispatch(Auth::user(), $request->ip());
 
-			return response()->success('Authenticated.', [
+			return response()->success([
+				'message' => trans('Authenticated.'),
 				'locale' => app()->getLocale(),
 				'user' => Auth::user()
 			]);
 		} else {
-			return response()->success('Not authenticated.', [
+			return response()->errors([
+				'message' => trans('Not authenticated.'),
 				'locale' => app()->getLocale(),
 				'user' => null
-			], 422, 'danger');
+			]);
 		}
 	}
 

@@ -83,11 +83,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'Password1234#1',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password confirmation does not match.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password confirmation does not match.'
 		]);
 
 		$res = $this->postJson('/web/api/register', [
@@ -97,11 +94,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'Password1234',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one symbol.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password must contain at least one symbol.'
 		]);
 
 		$res = $this->postJson('/web/api/register', [
@@ -111,11 +105,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'password1234#',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one uppercase and one lowercase letter.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
 		]);
 
 		$res = $this->postJson('/web/api/register', [
@@ -125,11 +116,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'Passwordoooo#',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one number.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password must contain at least one number.'
 		]);
 	}
 
@@ -150,7 +138,7 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => $pass,
 		]);
 
-		$res->assertStatus(201)->assertJson(['bag' => ['created' => true]]);
+		$res->assertStatus(201)->assertJson(['created' => true]);
 
 		$this->assertDatabaseHas('users', [
 			'name' => $user->name,
@@ -178,7 +166,7 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => $pass,
 		]);
 
-		$res->assertStatus(201)->assertJson(['bag' => ['created' => true]]);
+		$res->assertStatus(201)->assertJson(['created' => true]);
 
 		// Mail send test
 		Mail::assertSent(RegisterMail::class);
@@ -202,11 +190,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The email has already been taken.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The email has already been taken.'
 		]);
 	}
 
@@ -222,11 +207,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The name field is required.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The name field is required.'
 		]);
 	}
 
@@ -241,11 +223,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The email field is required.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The email field is required.'
 		]);
 	}
 
@@ -260,11 +239,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'password123',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['data' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password field is required.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password field is required.'
 		]);
 	}
 
@@ -279,11 +255,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => '',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password must contain at least one uppercase and one lowercase letter.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password must contain at least one uppercase and one lowercase letter.'
 		]);
 
 		$res = $this->postJson('/web/api/register', [
@@ -293,11 +266,8 @@ class WebiRegisterTest extends TestCase
 			'password_confirmation' => 'Password1234#1',
 		]);
 
-		$res->assertStatus(422)->assertJsonMissing(['bag' => ['created']])->assertJson([
-			'alert' => [
-				'message' => 'The password confirmation does not match.',
-				'type' => 'danger',
-			]
+		$res->assertStatus(422)->assertJsonMissing(['created'])->assertJson([
+			'message' => 'The password confirmation does not match.'
 		]);
 	}
 }

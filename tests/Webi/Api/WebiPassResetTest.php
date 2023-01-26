@@ -31,10 +31,7 @@ class WebiPassResetTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The email field is required.',
-				'type' => 'danger',
-			]
+			'message' => 'The email field is required.'
 		]);
 
 		$res = $this->postJson('/web/api/reset', [
@@ -42,10 +39,7 @@ class WebiPassResetTest extends TestCase
 		]);
 
 		$res->assertStatus(422)->assertJson([
-			'alert' => [
-				'message' => 'The email must be a valid email address.',
-				'type' => 'danger',
-			]
+			'message' => 'The email must be a valid email address.'
 		]);
 	}
 
@@ -61,10 +55,7 @@ class WebiPassResetTest extends TestCase
 		]);
 
 		$res->assertStatus(200)->assertJson([
-			'alert' => [
-				'message' => 'A new password has been sent to the e-mail address provided.',
-				'type' => 'success',
-			]
+			'message' => 'A new password has been sent to the e-mail address provided.'
 		]);
 
 		Event::assertDispatched(MessageSent::class, function ($e) use ($user) {
@@ -82,10 +73,7 @@ class WebiPassResetTest extends TestCase
 			]);
 
 			$res->assertStatus(200)->assertJson([
-				'alert' => [
-					'message' => 'Authenticated.',
-					'type' => 'success',
-				]
+				'message' => 'Authenticated.'
 			]);
 
 			return true;
