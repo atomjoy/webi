@@ -24,7 +24,7 @@ class WebiPassChangeWorkerTest extends AuthenticatedTestCase
 	/** @test */
 	function logged_user_data()
 	{
-		$res = $this->get('web/api/test/worker');
+		$res = $this->getJson('web/api/test/worker');
 
 		$res->assertStatus(200)->assertJsonStructure([
 			'message', 'user'

@@ -24,7 +24,7 @@ class WebiPassChangeAdminTest extends AuthenticatedTestCase
 	/** @test */
 	function logged_user_data()
 	{
-		$res = $this->get('web/api/test/admin');
+		$res = $this->getJson('web/api/test/admin');
 
 		$res->assertStatus(200)->assertJsonStructure([
 			'message', 'user'

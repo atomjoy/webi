@@ -33,7 +33,7 @@ class WebiRegisterTest extends TestCase
 		$this->assertNotNull($user);
 
 		$this->assertDatabaseHas('users', [
-			'name' => $user->name,
+			'name' => htmlspecialchars($user->name, ENT_QUOTES),
 			'email' => $user->email,
 			'role' => 'user',
 		]);
@@ -49,7 +49,7 @@ class WebiRegisterTest extends TestCase
 		$this->assertNotNull($user);
 
 		$this->assertDatabaseHas('users', [
-			'name' => $user->name,
+			'name' => htmlspecialchars($user->name, ENT_QUOTES),
 			'email' => $user->email,
 			'role' => 'worker',
 		]);
@@ -65,7 +65,7 @@ class WebiRegisterTest extends TestCase
 		$this->assertNotNull($user);
 
 		$this->assertDatabaseHas('users', [
-			'name' => $user->name,
+			'name' => htmlspecialchars($user->name, ENT_QUOTES),
 			'email' => $user->email,
 			'role' => 'admin',
 		]);
@@ -141,7 +141,7 @@ class WebiRegisterTest extends TestCase
 		$res->assertStatus(201)->assertJson(['created' => true]);
 
 		$this->assertDatabaseHas('users', [
-			'name' => $user->name,
+			'name' => htmlspecialchars($user->name, ENT_QUOTES),
 			'email' => $user->email,
 		]);
 
