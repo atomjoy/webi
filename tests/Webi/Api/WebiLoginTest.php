@@ -82,7 +82,7 @@ class WebiLoginTest extends TestCase
 		]);
 
 		$this->assertDatabaseHas('users', [
-			'name' => htmlspecialchars($user->name, ENT_QUOTES),
+			'name' => $user->name,
 			'email' => $user->email,
 		]);
 

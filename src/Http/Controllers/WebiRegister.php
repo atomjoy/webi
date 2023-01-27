@@ -29,10 +29,8 @@ class WebiRegister extends Controller
 		}
 
 		try {
-			$name = htmlentities(strip_tags($valid['name']), ENT_QUOTES, 'utf-8');
-
 			$user = User::create([
-				'name' => $name,
+				'name' => $valid['name'],
 				'email' => $valid['email'],
 				'password' => Hash::make($valid['password']),
 				'username' => uniqid('user.'),
