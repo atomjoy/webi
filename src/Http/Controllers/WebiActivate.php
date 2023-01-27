@@ -6,12 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiActivateRequest;
-use Webi\Traits\Http\HasJsonResponse;
 
 class WebiActivate extends Controller
 {
-	// use HasJsonResponse;
-
 	function index(WebiActivateRequest $request)
 	{
 		$valid = $request->validated();

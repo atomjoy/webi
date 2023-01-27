@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiChangePasswordRequest;
-use Webi\Traits\Http\HasJsonResponse;
 
 class WebiPassChange extends Controller
 {
-	// use HasJsonResponse;
-
 	function index(WebiChangePasswordRequest $request)
 	{
 		$valid = $request->validated();

@@ -11,12 +11,9 @@ use Webi\Events\WebiUserCreated;
 use Webi\Exceptions\WebiException;
 use Webi\Mail\RegisterMail;
 use Webi\Http\Requests\WebiRegisterRequest;
-use Webi\Traits\Http\HasJsonResponse;
 
 class WebiRegister extends Controller
 {
-	// use HasJsonResponse;
-
 	function index(WebiRegisterRequest $request)
 	{
 		$valid = $request->validated();

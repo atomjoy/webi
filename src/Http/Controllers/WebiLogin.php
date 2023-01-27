@@ -8,12 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Webi\Events\WebiUserLogged;
 use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiLoginRequest;
-use Webi\Traits\Http\HasJsonResponse;
 
 class WebiLogin extends Controller
 {
-	// use HasJsonResponse;
-
 	function index(WebiLoginRequest $request)
 	{
 		$valid = $request->validated();

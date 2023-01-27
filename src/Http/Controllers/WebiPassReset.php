@@ -10,12 +10,9 @@ use Illuminate\Support\Facades\Mail;
 use Webi\Exceptions\WebiException;
 use Webi\Mail\PasswordMail;
 use Webi\Http\Requests\WebiResetPasswordRequest;
-use Webi\Traits\Http\HasJsonResponse;
 
 class WebiPassReset extends Controller
 {
-	// use HasJsonResponse;
-
 	function index(WebiResetPasswordRequest $request)
 	{
 		$valid = $request->validated();

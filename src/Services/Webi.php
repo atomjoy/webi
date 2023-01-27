@@ -17,8 +17,8 @@ class Webi
 		request()->session()->regenerateToken();
 		session(['webi_cnt' => session('webi_cnt') + 1]);
 
-		return $this->jsonResponse([
-			'message' => 'Csrf token created.',
+		return response()->success([
+			'message' => trans('Csrf token created.'),
 			'counter' => session('webi_cnt'),
 			'locale' => app()->getLocale(),
 			'session_locale' => session('locale'),
@@ -31,10 +31,10 @@ class Webi
 			app()->setLocale($locale);
 			session(['locale' => app()->getLocale()]);
 
-			return $this->jsonResponse([
-				'message' => 'Locale has been changed.',
+			return response()->success([
+				'message' => trans('Locale has been changed.'),
 				'locale' => app()->getLocale(),
-			], 200);
+			]);
 		}
 
 		throw new WebiException('Locale has not been changed.');
@@ -56,10 +56,9 @@ class Webi
 			request()->session()->regenerateToken();
 			session(['locale' => config('app.locale')]);
 		} catch (Exception $e) {
-			report($e);
 			throw new WebiException('Logged out error.');
 		}
 
-		return $this->jsonResponse('Logged out.');
+		return response()->success('Logged out.');
 	}
 }

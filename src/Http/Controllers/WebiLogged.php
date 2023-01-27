@@ -11,8 +11,6 @@ use Webi\Events\WebiUserLogged;
 
 class WebiLogged extends Controller
 {
-	// use HasJsonResponse;
-
 	function index(Request $request)
 	{
 		$this->setWebiCookie($request);
