@@ -6,7 +6,7 @@
 	"php.validate.executablePath": "C:/xampp/php/php.exe",
 
 	// Window zoom/scale
-	"window.zoomLevel": 1,
+	"window.zoomLevel": 0,
 
 	// Workbench style
 	"workbench.tree.indent": 20,
@@ -21,7 +21,7 @@
 	"files.trimTrailingWhitespace": true,
 
 	// Style
-	"editor.fontSize": 16,
+	"editor.fontSize": 18,
 	"editor.letterSpacing": 0.3,
 	"editor.fontFamily": "'Fira Code',Consolas,monospace",
 	"editor.insertSpaces": true, // Use spaces no tabs

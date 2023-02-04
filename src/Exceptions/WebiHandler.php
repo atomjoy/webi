@@ -97,20 +97,6 @@ class WebiHandler extends ExceptionHandler
 	}
 
 	/**
-	 * Refresh session locale.
-	 *
-	 * @return void
-	 */
-	public function updateLocale()
-	{
-		$lang =  session('locale', config('app.locale'));
-		app()->setLocale($lang);
-		if (request()->has('locale')) {
-			app()->setLocale(request()->query('locale'));
-		}
-	}
-
-	/**
 	 * Http codes validation.
 	 *
 	 * @return bool
