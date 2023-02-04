@@ -64,13 +64,13 @@ php artisan --env=testing migrate:fresh
 <!-- Composer vendor -->
 <testsuites>
   <testsuite name="Webi">
-    <directory suffix="Test.php">./vendor/atomjoy/webi/tests</directory>
+  <directory suffix="Test.php">./vendor/atomjoy/webi/tests</directory>
   </testsuite>
   <testsuite name="WebiApi">
-    <directory suffix="Test.php">./vendor/atomjoy/webi/tests/Webi/Api</directory>
+  <directory suffix="Test.php">./vendor/atomjoy/webi/tests/Webi/Api</directory>
   </testsuite>
   <testsuite name="WebiLang">
-    <directory suffix="Test.php">./vendor/atomjoy/webi/tests/Webi/Lang</directory>
+  <directory suffix="Test.php">./vendor/atomjoy/webi/tests/Webi/Lang</directory>
   </testsuite>
 </testsuites>
 
