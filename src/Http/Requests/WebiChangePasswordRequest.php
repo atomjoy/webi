@@ -2,6 +2,7 @@
 
 namespace Webi\Http\Requests;
 
+use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
@@ -16,7 +17,10 @@ class WebiChangePasswordRequest extends FormRequest
 
 	public function authorize()
 	{
-		return true; // Allow all
+		if (auth()->user() instanceof User) {
+			return true; // Allow all
+		}
+		return false;
 	}
 
 	public function rules()

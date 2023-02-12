@@ -106,6 +106,16 @@ class WebiPassChangehUserTest extends AuthenticatedTestCase
 
 		Auth::logout();
 
+		$res = $this->postJson('/web/api/change-password', [
+			'password_current' => 'password1234#',
+			'password' => 'Password12345#',
+			'password_confirmation' => 'Password12345#'
+		]);
+
+		$res->assertStatus(401)->assertJson([
+			'message' => 'Unauthenticated.'
+		]);
+
 		$res = $this->postJson('/web/api/login', [
 			'email' => $this->user->email,
 			'password' => 'Password1234#'

@@ -12,23 +12,21 @@
 	"workbench.tree.indent": 20,
 	"workbench.tree.renderIndentGuides": "always",
 
-	// Icons, theme
+	// Icons
 	"workbench.iconTheme": "material-icon-theme",
-	"workbench.colorTheme": "Bearded Theme Oceanic",
-	"workbench.startupEditor": "none",
 
 	// File
 	"files.trimTrailingWhitespace": true,
 
 	// Style
 	"editor.fontSize": 18,
-	"editor.letterSpacing": 0.3,
 	"editor.fontFamily": "'Fira Code',Consolas,monospace",
 	"editor.insertSpaces": true, // Use spaces no tabs
 	"editor.detectIndentation": false,
 	"editor.fontLigatures": true, // Enables font ligatures
 	"editor.wordWrap": "off",
-	"editor.lineHeight": 25, // Use 0 to compute the lineHeight from the fontSize.
+	"editor.lineHeight": 0, // Use 0 to compute the lineHeight from the fontSize.
+	"editor.letterSpacing": 0.5,
 	"editor.tabSize": 2,
 
 	// Formatter
@@ -55,7 +53,9 @@
 	"[markdown]": {
 		"editor.unicodeHighlight.ambiguousCharacters": false,
 		"editor.unicodeHighlight.invisibleCharacters": false,
-		"editor.wordWrap": "on"
+		"editor.wordWrap": "off",
+		"editor.formatOnSave": true,
+		"editor.formatOnPaste": true
 	},
 	"[javascript]": {
 		"editor.formatOnSave": true,
@@ -89,15 +89,15 @@
 		"editor.autoClosingBrackets": "always"
 	},
 
+	"editor.codeActionsOnSave": {
+		"source.fixAll.markdownlint": true
+	},
+
 	// Laravel facades error
 	"intelephense.diagnostics.undefinedTypes": false,
 	"intelephense.diagnostics.undefinedMethods": false,
 	"intelephense.environment.phpVersion": "8.1.6",
-	"explorer.confirmDragAndDrop": false,
-
-	"files.associations": {
-		"*.env": "properties",
-		"*.env.*": "properties"
-	}
-	// "typescript.tsserver.log": "normal"
+	"workbench.startupEditor": "none",
+	"workbench.colorTheme": "Bearded Theme Oceanic",
+	"explorer.confirmDragAndDrop": false
 }
