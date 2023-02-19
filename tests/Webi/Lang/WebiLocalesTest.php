@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Webi\Api;
+namespace Tests\Webi\Lang;
 
 use Tests\TestCase;
 

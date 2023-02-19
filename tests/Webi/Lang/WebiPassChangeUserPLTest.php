@@ -11,7 +11,7 @@ use Webi\Traits\Tests\AuthenticatedTestCase;
 	php artisan test --testsuite=Webi --stop-on-failure
 */
 
-class WebiPassChangehUserPLTest extends AuthenticatedTestCase
+class WebiPassChangeUserPLTest extends AuthenticatedTestCase
 {
 	protected UserRole $authWithRole = UserRole::USER;
 

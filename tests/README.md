@@ -97,26 +97,26 @@ php artisan test --stop-on-failure --testsuite=WebiLang
 php artisan test --stop-on-failure --testsuite=Webi
 ```
 
-# Dev settings (ignore)
+## Dev settings (ignore)
 
-## Local composer dev
+### Local composer dev
 
 ```json
 {
-	"repositories": [
-		{
-			"type": "path",
-			"url": "packages/atomjoy/webi"
-		}
-	],
-	"require": {
-		"php": "^8.1.0",
-		"atomjoy/webi": "dev-main"
-	}
+ "repositories": [
+  {
+   "type": "path",
+   "url": "packages/atomjoy/webi"
+  }
+ ],
+ "require": {
+  "php": "^8.1.0",
+  "atomjoy/webi": "dev-main"
+ }
 }
 ```
 
-## Linux install
+### Linux install
 
 ```sh
 sudo apt install git composer ufw net-tools dnsutils mailutils
