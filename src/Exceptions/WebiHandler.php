@@ -11,7 +11,6 @@ use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Webi\Exceptions\WebiException;
 
 class WebiHandler extends ExceptionHandler
 {
@@ -78,12 +77,6 @@ class WebiHandler extends ExceptionHandler
 		});
 
 		$this->renderable(function (ValidationException $e, $request) {
-			if ($request->is('web/api/*') || $request->wantsJson()) {
-				return response()->errors($e->getMessage(), 422);
-			}
-		});
-
-		$this->renderable(function (WebiException $e, $request) {
 			if ($request->is('web/api/*') || $request->wantsJson()) {
 				return response()->errors($e->getMessage(), 422);
 			}

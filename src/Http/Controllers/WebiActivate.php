@@ -4,7 +4,6 @@ namespace Webi\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiActivateRequest;
 
 class WebiActivate extends Controller
@@ -17,7 +16,7 @@ class WebiActivate extends Controller
 		$user = User::where('id', (int) $valid['id'])->first();
 
 		if (!$user instanceof User) {
-			throw new WebiException("Invalid activation code.");
+			return response()->errors("Invalid activation code.");
 		}
 
 		if (!empty($user->email_verified_at)) {
@@ -30,6 +29,6 @@ class WebiActivate extends Controller
 			return response()->success('Email has been confirmed.');
 		}
 
-		throw new WebiException("Email has not been activated.");
+		return response()->errors("Email has not been activated.");
 	}
 }

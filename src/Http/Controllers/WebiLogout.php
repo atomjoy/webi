@@ -6,7 +6,6 @@ use Exception;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Webi\Exceptions\WebiException;
 
 class WebiLogout extends Controller
 {
@@ -23,7 +22,7 @@ class WebiLogout extends Controller
 			session(['locale' => config('app.locale')]);
 		} catch (Exception $e) {
 			report($e);
-			throw new WebiException('Logged out error.', 422);
+			return response()->errors('Logged out error.', 422);
 		}
 
 		return response()->success('Logged out.');

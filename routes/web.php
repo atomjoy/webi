@@ -44,6 +44,6 @@ Route::prefix('web/api')->name('web.api.')->middleware([
 
 	// Fallback
 	Route::fallback(function () {
-		throw new Exception('Invalid api route path or request method.', 400);
+		return response()->errors('Invalid api route path or request method.', 400);
 	});
 });

@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Webi\Exceptions\WebiException;
 use Webi\Mail\PasswordMail;
 use Webi\Http\Requests\WebiResetPasswordRequest;
 
@@ -31,7 +30,7 @@ class WebiPassReset extends Controller
 		}
 
 		if (!$user instanceof User) {
-			throw new WebiException('Email address does not exists.');
+			return response()->errors('Email address does not exists.');
 		}
 
 		try {
@@ -43,7 +42,7 @@ class WebiPassReset extends Controller
 			$user->save();
 		} catch (Exception $e) {
 			report($e);
-			throw new WebiException('Password has not been updated.');
+			return response()->errors('Password has not been updated.');
 		}
 
 		try {
@@ -52,7 +51,7 @@ class WebiPassReset extends Controller
 				->send(new PasswordMail($user, $password));
 		} catch (Exception $e) {
 			report($e);
-			throw new WebiException('Unable to send e-mail, please try again later.');
+			return response()->errors('Unable to send e-mail, please try again later.');
 		}
 
 		return response()->success('A new password has been sent to the e-mail address provided.');

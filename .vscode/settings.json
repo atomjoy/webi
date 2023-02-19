@@ -103,5 +103,10 @@
 	"intelephense.environment.phpVersion": "8.1.6",
 	"workbench.startupEditor": "none",
 	"workbench.colorTheme": "Bearded Theme Oceanic",
-	"explorer.confirmDragAndDrop": false
+	"explorer.confirmDragAndDrop": false,
+
+	"files.associations": {
+		"*.env": "properties",
+		"*.env.*": "properties"
+	}
 }

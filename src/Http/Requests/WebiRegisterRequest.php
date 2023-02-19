@@ -4,9 +4,9 @@ namespace Webi\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
-use Webi\Exceptions\WebiException;
 use Webi\Traits\HasStripTags;
 
 class WebiRegisterRequest extends FormRequest
@@ -45,7 +45,9 @@ class WebiRegisterRequest extends FormRequest
 
 	public function failedValidation(Validator $validator)
 	{
-		throw new WebiException($validator->errors()->first());
+		throw new ValidationException($validator, response()->json([
+			'message' => $validator->errors()->first()
+		], 422));
 	}
 
 	function prepareForValidation()

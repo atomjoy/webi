@@ -5,7 +5,6 @@ namespace Webi\Services;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Webi\Exceptions\WebiException;
 use Webi\Traits\Http\HasJsonResponse;
 
 class Webi
@@ -37,7 +36,7 @@ class Webi
 			]);
 		}
 
-		throw new WebiException('Locale has not been changed.');
+		return response()->errors('Locale has not been changed.');
 	}
 
 	function logout()
@@ -56,7 +55,7 @@ class Webi
 			request()->session()->regenerateToken();
 			session(['locale' => config('app.locale')]);
 		} catch (Exception $e) {
-			throw new WebiException('Logged out error.');
+			return response()->errors('Logged out error.');
 		}
 
 		return response()->success('Logged out.');

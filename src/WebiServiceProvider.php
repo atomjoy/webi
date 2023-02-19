@@ -4,7 +4,6 @@ namespace Webi;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Http\Kernel;
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Webi\Http\Middleware\WebiAuthRoles;
 use Webi\Http\Middleware\WebiCors;
 use Webi\Http\Middleware\WebiChangeLocale;
@@ -13,20 +12,12 @@ use Webi\Http\Middleware\WebiVerifyCsrfToken;
 use Webi\Providers\WebiEventServiceProvider;
 use Webi\Providers\WebiResponseMacroServiceProvider;
 use Webi\Services\Webi;
-use Webi\Exceptions\WebiHandler;
 
 class WebiServiceProvider extends ServiceProvider
 {
 	public function register()
 	{
 		$this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'webi');
-
-		if (config('webi.settings.error_handler') == true) {
-			$this->app->singleton(
-				ExceptionHandler::class,
-				WebiHandler::class
-			);
-		}
 
 		$this->app->bind('webi', function ($app) {
 			return new Webi();

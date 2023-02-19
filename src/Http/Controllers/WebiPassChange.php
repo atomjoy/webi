@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiChangePasswordRequest;
 
 class WebiPassChange extends Controller
@@ -26,9 +25,9 @@ class WebiPassChange extends Controller
 
 			return response()->success('Password has been updated.');
 		} else {
-			throw new WebiException('Invalid current password.');
+			return response()->errors('Invalid current password.');
 		}
 
-		throw new WebiException('Password has not been updated.');
+		return response()->errors('Password has not been updated.');
 	}
 }

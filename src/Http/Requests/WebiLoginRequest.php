@@ -4,7 +4,7 @@ namespace Webi\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
-use Webi\Exceptions\WebiException;
+use Illuminate\Validation\ValidationException;
 use Webi\Traits\HasStripTags;
 
 class WebiLoginRequest extends FormRequest
@@ -34,7 +34,9 @@ class WebiLoginRequest extends FormRequest
 
 	public function failedValidation(Validator $validator)
 	{
-		throw new WebiException($validator->errors()->first());
+		throw new ValidationException($validator, response()->json([
+			'message' => $validator->errors()->first()
+		], 422));
 	}
 
 	function prepareForValidation()

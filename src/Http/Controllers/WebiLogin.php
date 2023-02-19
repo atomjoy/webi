@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Webi\Events\WebiUserLogged;
-use Webi\Exceptions\WebiException;
 use Webi\Http\Requests\WebiLoginRequest;
 
 class WebiLogin extends Controller
@@ -26,11 +25,11 @@ class WebiLogin extends Controller
 			$user = Auth::user();
 
 			if (!$user instanceof User) {
-				throw new WebiException('Invalid credentials.');
+				return response()->errors('Invalid credentials.');
 			}
 
 			if (empty($user->email_verified_at)) {
-				throw new WebiException('The account has not been activated.');
+				return response()->errors('The account has not been activated.');
 			}
 
 			WebiUserLogged::dispatch($user, request()->ip());
@@ -40,7 +39,7 @@ class WebiLogin extends Controller
 				'user' => $user,
 			]);
 		} else {
-			throw new WebiException('Invalid credentials.');
+			return response()->errors('Invalid credentials.');
 		}
 	}
 }

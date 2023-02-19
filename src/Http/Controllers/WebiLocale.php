@@ -4,7 +4,6 @@ namespace Webi\Http\Controllers;
 
 use Exception;
 use App\Http\Controllers\Controller;
-use Webi\Exceptions\WebiException;
 
 class WebiLocale extends Controller
 {
@@ -21,6 +20,6 @@ class WebiLocale extends Controller
 			]);
 		}
 
-		throw new WebiException('Locale has not been changed.');
+		return response()->errors('Locale has not been changed.');
 	}
 }

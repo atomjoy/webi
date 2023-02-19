@@ -80,6 +80,20 @@ php artisan --env=testing migrate:fresh
 </php>
 ```
 
+## Add in app Exceptions/Handler.php
+
+```php
+// Translations for "Unauthorized." auth error
+public function register()
+{
+  $this->renderable(function (AuthenticationException $e, $request) {
+   if ($request->is('web/api/*') || $request->wantsJson()) {
+    return response()->errors($e->getMessage(), 401);
+   }
+  });
+}
+```
+
 ## Run tests
 
 ```sh
