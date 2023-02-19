@@ -55,7 +55,8 @@
 		"editor.unicodeHighlight.invisibleCharacters": false,
 		"editor.wordWrap": "off",
 		"editor.formatOnSave": true,
-		"editor.formatOnPaste": true
+		"editor.formatOnPaste": true,
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
 	},
 	"[javascript]": {
 		"editor.formatOnSave": true,
@@ -87,6 +88,9 @@
 		"editor.defaultFormatter": "onecentlin.laravel-blade",
 		"editor.wordWrapColumn": 1000,
 		"editor.autoClosingBrackets": "always"
+	},
+	"[xml]": {
+		"editor.defaultFormatter": "DotJoshJohnson.xml"
 	},
 
 	"editor.codeActionsOnSave": {
