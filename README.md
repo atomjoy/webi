@@ -2,7 +2,7 @@
 
 Laravel web rest api authentication library.
 
-## Install (Laravel 9, Php 8.1)
+## Install (Laravel 10, Php 8.1)
 
 First set your .env variables (mysql, smtp) and then
 
@@ -67,9 +67,11 @@ Route::get('/activate/{id}/{code}', [YourActivationController::class, 'index'])-
 Route::get('/activate/{id}/{code}', [WebiActivate::class, 'index'])->middleware(['webi-locale']);
 ```
 
-## Copy translations to app lang
+## Copy translations to app lang (for tests only)
 
 ```sh
+php artisan lang:publish
+php artisan vendor:publish --tag=webi-lang-en --force
 php artisan vendor:publish --tag=webi-lang-pl --force
 ```
 
@@ -100,9 +102,9 @@ Tests readme file location
 tests/README.md
 ```
 
-# Settings (optional)
+## Settings (optional)
 
-## Customize
+### Customize
 
 ```sh
 # Edit email blade themes
@@ -140,7 +142,7 @@ composer dump-autoload -o
 composer update --no-dev
 ```
 
-# Web API Requests
+## Web API Requests
 
 Send requests as json. Response as json: **{'message', "user"}**. For more go to: **src/Http/Requests** and **src\Http\Controllers** directories or to routes file **routes/web.php**.
 
