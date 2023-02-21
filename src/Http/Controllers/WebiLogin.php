@@ -18,6 +18,8 @@ class WebiLogin extends Controller
 
 		unset($valid['remember_me']);
 
+		$valid['deleted_at'] = null;
+
 		if (Auth::attempt($valid, $remember)) {
 
 			$request->session()->regenerate();

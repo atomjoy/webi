@@ -73,6 +73,35 @@ class WebiLoginTest extends TestCase
 	}
 
 	/** @test */
+	function login_user_soft_deleted()
+	{
+		$user = User::factory()->create([
+			'email' => 'xxxxxxxxxx@gmail.com',
+			'password' => Hash::make('Password123#@!'),
+		]);
+
+		$res = $this->postJson('/web/api/login', [
+			'email' => 'xxxxxxxxxx@gmail.com',
+			'password' => 'Password123#@!',
+		]);
+
+		$res->assertStatus(200)->assertJson([
+			'message' => 'Authenticated.'
+		]);
+
+		$user->delete(); // Soft deleted users not allowed
+
+		$res = $this->postJson('/web/api/login', [
+			'email' => 'xxxxxxxxxx@gmail.com',
+			'password' => 'Password123#@!',
+		]);
+
+		$res->assertStatus(422)->assertJson([
+			'message' => 'Invalid credentials.'
+		]);
+	}
+
+	/** @test */
 	function login_user()
 	{
 		Auth::logout();
