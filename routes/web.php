@@ -10,6 +10,7 @@ use Webi\Http\Controllers\WebiLogout;
 use Webi\Http\Controllers\WebiRegister;
 use Webi\Http\Controllers\WebiPassReset;
 use Webi\Http\Controllers\WebiPassChange;
+use Webi\Http\Controllers\WebiPassConfirm;
 use Webi\Http\Controllers\WebiUserDetails;
 
 Route::prefix('web/api')->name('web.api.')->middleware([
@@ -28,6 +29,7 @@ Route::prefix('web/api')->name('web.api.')->middleware([
 	// Only logged users
 	Route::middleware(['auth', 'webi-role:admin|worker|user'])->group(function () {
 		Route::post('/change-password', [WebiPassChange::class, 'index'])->name('change-password');
+		Route::post('/confirm-password', [WebiPassConfirm::class, 'index'])->name('confirm-password');
 		Route::get('/logout', [WebiLogout::class, 'index'])->name('logout');
 		Route::get('/test/user', [WebiUserDetails::class, 'index'])->name('test.user');
 	});
